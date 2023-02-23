@@ -1,9 +1,9 @@
-import './globals.css'
+import './globals.css';
 
 export default function RootLayout({
-  children,
+  children
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -12,7 +12,14 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body>{children}</body>
+      <body>
+        <div className="flex">
+          {/* sidebar */}
+          {/* ClientProvider - Notification */}
+
+          <div className="bg-[#343541] flex-1">{children}</div>
+        </div>
+      </body>
     </html>
-  )
+  );
 }
