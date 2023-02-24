@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { collection, orderBy, query } from 'firebase/firestore';
 import { db } from '../../firebase';
 import ChatRow from './ChatRow';
+import ModelSelection from './ModelSelection';
 
 function SideBar() {
   const { data: session } = useSession();
@@ -22,6 +23,18 @@ function SideBar() {
     <div className="flex h-screen flex-col p-2">
       <div className="flex-1">
         <NewChat />
+
+        <div className="hidden sm:inline sm:py-2">
+          <ModelSelection />
+        </div>
+
+        <div className="my-2 flex flex-col space-y-2">
+          {loading && (
+            <div className="animate-pulse text-center text-white">
+              <p>Loading Chats...</p>
+            </div>
+          )}
+        </div>
 
         {chats?.docs?.map((doc) => {
           return <ChatRow key={doc?.id} id={doc?.id} />;

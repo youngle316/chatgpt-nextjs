@@ -18,7 +18,10 @@ function ChatRow({ id }: ChatRowProps) {
   const [active, setActive] = useState(false);
 
   const [messages] = useCollection(
-    collection(db, 'users', session?.user?.email!, 'chats', id, 'message')
+    query(
+      collection(db, 'users', session?.user?.email!, 'chats', id, 'messages'),
+      orderBy('createAt', 'asc')
+    )
   );
 
   useEffect(() => {
@@ -26,6 +29,7 @@ function ChatRow({ id }: ChatRowProps) {
       return;
     }
     setActive(pathname.includes(id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const removeChat = async () => {
