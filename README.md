@@ -1,38 +1,73 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+> Use OpenAi Api to make a ChatGPT and use the firebase to save the conversation and auth
 
-## Getting Started
+## How to use
 
-First, run the development server:
+### get token and keys
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+1. Create a file named **".env.local"** at the root dir.
+
+```shell
+GOOGLE_ID=
+GOOGLE_SECRET=
+NEXTAUTH_SECRET=ThisIsASuperSecretAuth
+OPENAI_API_KEY=
+FIREBASE_SERVICE_ACCOUNT_KEY=
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+you should follow the step to get your key
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Firstly, you should have an OpenAi account, and get your token.(This is the **OPENAI_API_KEY**)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225064458.png)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225064547.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+2. secondly, use google for auth
+   1. use [Firebase](https://console.firebase.google.com) to create a project
+   2. move to the **Authentication** part
+   3. select Google and save
+   4. get the **GOOGLE_ID** and **GOOGLE_SECRET**
 
-## Learn More
+![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225070034.png)
 
-To learn more about Next.js, take a look at the following resources:
+![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225070106.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225070234.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225070411.png)
 
-## Deploy on Vercel
+3. thirdly, get your FIREBASE_SERVICE_ACCOUNT_KEY
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225070613.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225071318.png)
+
+download your secret key file and open it, then copy them, open this website [textfixer](https://www.textfixer.com/tools/remove-line-breaks.php) and remove line breaks
+
+![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225071638.png)
+
+then get the new text and that is **FIREBASE_SERVICE_ACCOUNT_KEY**
+
+### Change firebaseConfig
+
+![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225072021.png)
+
+![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225072037.png)
+
+then create one
+
+![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225072247.png)
+
+copy these code to replace **"firebase.ts"** file
+
+### Create Firestore Database
+
+![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225072554.png)
+
+### Start Project
+
+```shell
+npm install
+
+npm run dev
+```
