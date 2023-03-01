@@ -24,10 +24,6 @@ function SideBar() {
       <div className="flex-1">
         <NewChat />
 
-        <div className="py-2">
-          <ModelSelection />
-        </div>
-
         <div className="my-2 flex flex-col space-y-2">
           {loading && (
             <div className="animate-pulse text-center text-white">

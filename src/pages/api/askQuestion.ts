@@ -1,5 +1,5 @@
 import admin from 'firebase-admin';
-import query from '../../../lib/queryApi';
+import chatgptQuery from '../../../lib/queryApi';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { adminDb } from 'firebaseAdmin';
 
@@ -21,7 +21,7 @@ export default async function handler(
     res.status(400).json({ answer: 'Please Provider A Valid Chat ID' });
   }
 
-  const response = await query(prompt, chatId, model);
+  const response = await chatgptQuery(prompt);
 
   const message: Message = {
     text:
