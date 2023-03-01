@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 
 const openState = atom({
   key: 'openState',
-  default: true
+  default: false
 });
 
 export { openState };
