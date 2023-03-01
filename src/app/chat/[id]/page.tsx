@@ -1,5 +1,6 @@
 import Chat from '@/components/Chat';
 import ChatInput from '@/components/ChatInput';
+import TopBar from '@/components/TopBar';
 
 type ChatPageProps = {
   params: {

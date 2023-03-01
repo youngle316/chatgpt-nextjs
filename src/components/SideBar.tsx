@@ -20,11 +20,11 @@ function SideBar() {
   );
 
   return (
-    <div className="flex h-screen flex-col p-2">
+    <div className="flex h-full flex-col p-2">
       <div className="flex-1">
         <NewChat />
 
-        <div className="hidden sm:inline sm:py-2">
+        <div className="py-2">
           <ModelSelection />
         </div>
 
