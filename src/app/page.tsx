@@ -6,10 +6,10 @@ import {
 
 export default function Home() {
   return (
-    <div className="flex h-screen flex-col items-center justify-center px-2 text-white">
-      <h1 className="mb-20 text-5xl font-bold">ChatGPT</h1>
+    <div className="mb-6 flex w-full flex-col items-center justify-center px-2 text-white md:h-full">
+      <h1 className="mb-10 mt-6 text-4xl font-bold sm:mb-16">ChatGPT</h1>
 
-      <div className="flex space-x-2">
+      <div className="flex flex-col gap-3.5 md:flex-row">
         {/* Examples */}
         <div>
           <div className="mb-5 flex flex-col items-center justify-center">

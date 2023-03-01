@@ -4,11 +4,11 @@
 
 @layer components {
   .infoText {
-    @apply max-w-[300px] rounded-lg bg-gray-700/50 p-4;
+    @apply max-w-[22rem] rounded-lg bg-gray-700/50 p-3 md:max-w-2xl lg:max-w-3xl;
   }
 
   .chatRow {
-    @apply flex cursor-pointer items-center justify-center space-x-2 rounded-lg px-5 py-3 text-sm 
+    @apply flex w-full cursor-pointer items-center justify-center space-x-2 rounded-lg px-5 py-3 text-sm 
       text-gray-300 transition-all duration-200 ease-out hover:bg-gray-700/70;
   }
 }
