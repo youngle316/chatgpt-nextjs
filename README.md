@@ -1,4 +1,23 @@
-> Use OpenAi Api to make a ChatGPT and use the firebase to save the conversation and auth
+> Use [chatgpt-api](https://github.com/transitive-bullshit/chatgpt-api) to make a mini ChatGPT
+
+## Intro
+
+This project is mini ChatGPT, use NextJS13, FireBase and [chatgpt-api](https://github.com/transitive-bullshit/chatgpt-api)
+
+Have a try -> [chatgpt.younglele.cn](https://chatgpt.younglele.cn)
+
+## updates
+
+<details>
+   <summary>March 1, 2023</summary>
+   
+   change api from openai api to [chatgpt-api](https://github.com/transitive-bullshit/chatgpt-api)
+   
+</details>
+
+## Problem
+
+:warning:The project is deployed using Vercel, because I am a hobby user, _the Serverless Function Execution Timeout (Seconds)_ is 10s([General Limits](https://vercel.com/docs/concepts/limits/overview)), so when the api response time is greater than 10s, nothing will be displayed
 
 ## How to use
 
