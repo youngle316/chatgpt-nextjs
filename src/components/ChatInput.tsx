@@ -5,8 +5,9 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import { FormEvent, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import useSWR from 'swr';
 import { db } from '../../firebase';
+import { useRecoilState } from 'recoil';
+import { parentMessageIdState } from '@/atom/AtomChat';
 
 type ChatProps = {
   chatId: string;
@@ -15,10 +16,7 @@ type ChatProps = {
 function ChatInput({ chatId }: ChatProps) {
   const [prompt, setPrompt] = useState('');
   const { data: session } = useSession();
-
-  const { data: model } = useSWR('model', {
-    fallbackData: 'text-davinci-003'
-  });
+  const [parentMessageId] = useRecoilState(parentMessageIdState);
 
   const sendMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,8 +60,8 @@ function ChatInput({ chatId }: ChatProps) {
       body: JSON.stringify({
         prompt: input,
         chatId,
-        model,
-        session
+        session,
+        parentMessageId
       })
     }).then(() => {
       toast.success('ChatGPT has responded!', {

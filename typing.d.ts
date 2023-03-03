@@ -1,4 +1,5 @@
 interface Message {
+  id?: string;
   text: string;
   createAt: admin.firestore.Timestamp;
   user: {

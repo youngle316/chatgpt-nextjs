@@ -41,7 +41,6 @@ function ChatRow({ id }: ChatRowProps) {
     router.replace('/');
   };
 
-  //
   const linkToChat = () => {
     openStateChange(false);
   };
