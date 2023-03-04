@@ -1,10 +1,6 @@
-import { ChatGPTAPI } from 'chatgpt';
+import { api } from './chatGPTApi';
 
 const chatgptQuery = async (prompt: string, parentMessageId: string) => {
-  const api = new ChatGPTAPI({
-    apiKey: process.env.OPENAI_API_KEY as string
-  });
-
   const res = await api
     .sendMessage(prompt, { parentMessageId: parentMessageId || undefined })
     .then((res) => {
