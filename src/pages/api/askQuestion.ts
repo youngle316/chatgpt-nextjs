@@ -5,6 +5,7 @@ import { adminDb } from 'firebaseAdmin';
 
 type Data = {
   answer: string;
+  result?: any;
 };
 
 export default async function handler(
@@ -22,6 +23,7 @@ export default async function handler(
   }
 
   const result = await chatgptQuery(prompt, parentMessageId);
+  console.log('result', result);
 
   const message: Message = {
     id: result.id,
@@ -45,5 +47,5 @@ export default async function handler(
     .collection('messages')
     .add(message);
 
-  res.status(200).json({ answer: message.text });
+  res.status(200).json({ answer: message.text, result });
 }
