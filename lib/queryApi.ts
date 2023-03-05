@@ -1,19 +1,12 @@
-import { ChatGPTAPI } from 'chatgpt';
+import { api } from './chatGPTApi';
 
-const chatgptQuery = async (prompt: string) => {
-  const api = new ChatGPTAPI({
-    apiKey: process.env.OPENAI_API_KEY || ''
-  });
-
+const chatgptQuery = async (prompt: string, parentMessageId: string) => {
   const res = await api
-    .sendMessage(prompt)
+    .sendMessage(prompt, { parentMessageId: parentMessageId || undefined })
     .then((res) => {
-      return res.text;
+      return res;
     })
-    .catch(
-      () =>
-        `ChatGPT was unable to find an answer to your question. Please try again later.`
-    );
+    .catch();
 
   return res;
 };
