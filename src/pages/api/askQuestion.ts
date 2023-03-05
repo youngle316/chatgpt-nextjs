@@ -23,10 +23,9 @@ export default async function handler(
   }
 
   const result = await chatgptQuery(prompt, parentMessageId);
-  console.log('result', result);
 
   const message: Message = {
-    id: result.id,
+    parentMessageId: result.id,
     text:
       result.text ||
       'ChatGPT was unable to find an answer to your question. Please try again later.',

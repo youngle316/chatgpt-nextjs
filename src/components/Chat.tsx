@@ -35,7 +35,8 @@ function Chat({ chatId }: ChatProps) {
 
   useEffect(() => {
     const data = messages?.docs;
-    setParentMessageId(data ? data[data.length - 1]?.id! : '');
+    const lastData = data && data[data.length - 1];
+    setParentMessageId(lastData ? lastData?.parentMessageId! : '');
   }, [messages]);
 
   return (
