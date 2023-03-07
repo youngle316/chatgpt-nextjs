@@ -4,9 +4,8 @@ import { useSession, signOut } from 'next-auth/react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Image from 'next/image';
 import { collection, orderBy, query } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { db } from '../../service/firebase/firebase';
 import ChatRow from './ChatRow';
-import ModelSelection from './ModelSelection';
 
 function SideBar() {
   const { data: session } = useSession();

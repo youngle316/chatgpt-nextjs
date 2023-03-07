@@ -1,6 +1,5 @@
-import Chat from '@/components/Chat';
-import ChatInput from '@/components/ChatInput';
-import TopBar from '@/components/TopBar';
+import Chat from '@/views/chat/Chat';
+import ChatInput from '@/views/chat/ChatInput';
 
 type ChatPageProps = {
   params: {

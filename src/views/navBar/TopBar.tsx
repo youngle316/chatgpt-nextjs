@@ -5,7 +5,7 @@ import { openState } from '@/atom/AtomSlideOver';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { db } from '../../firebase';
+import { db } from '../../service/firebase/firebase';
 
 function TopBar() {
   const [open, setOpen] = useRecoilState(openState);

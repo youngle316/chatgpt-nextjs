@@ -1,7 +1,7 @@
 import admin from 'firebase-admin';
-import chatgptQuery from '../../../lib/queryApi';
+import chatgptQuery from '../../api/chatgptApi/queryApi';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { adminDb } from 'firebaseAdmin';
+import { adminDb } from '@/service/firebase/firebaseAdmin';
 
 type Data = {
   answer: string;

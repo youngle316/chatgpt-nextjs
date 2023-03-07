@@ -1,13 +1,13 @@
 import './globals.css';
-import SideBar from '@/components/SideBar';
-import { SessionProvider } from '@/components/SesseionProvider';
+import SideBar from '@/views/sideBar/SideBar';
+import { SessionProvider } from '@/provider/SesseionProvider';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
-import Login from '@/components/Login';
-import ClientProvider from '@/components/ClientProvider';
-import SlideOver from '@/components/SlideOver';
-import { AtomProvider } from '@/components/AtomProvider';
-import TopBar from '@/components/TopBar';
+import Login from '@/views/login/Login';
+import ClientProvider from '@/provider/ClientProvider';
+import SlideOver from '@/views/slide/SlideOver';
+import { AtomProvider } from '@/provider/AtomProvider';
+import TopBar from '@/views/navBar/TopBar';
 
 export default async function RootLayout({
   children

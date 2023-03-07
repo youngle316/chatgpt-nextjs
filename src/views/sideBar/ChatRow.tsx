@@ -7,7 +7,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useSetRecoilState } from 'recoil';
-import { db } from '../../firebase';
+import { db } from '../../service/firebase/firebase';
 
 type ChatRowProps = {
   id: string;
