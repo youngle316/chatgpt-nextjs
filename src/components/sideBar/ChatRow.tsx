@@ -1,4 +1,4 @@
-import { openState } from '@/atom/AtomSlideOver';
+import { openState } from '@/recoil/atom/AtomSlideOver';
 import { ChatBubbleLeftIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { collection, deleteDoc, doc, orderBy, query } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
@@ -52,13 +52,17 @@ function ChatRow({ id }: ChatRowProps) {
       className={`chatRow ${active && 'bg-gray-700/50'}`}
     >
       <ChatBubbleLeftIcon className="h-5 w-5" />
-      <p className=" max-h-5 flex-1 overflow-hidden text-ellipsis break-all">
+      <div className="relative max-h-5 flex-1 overflow-hidden text-ellipsis break-all">
         {messages?.docs[messages?.docs.length - 1]?.data().text || 'New Chat'}
-      </p>
-      <TrashIcon
-        onClick={removeChat}
-        className="h-5 w-5 cursor-pointer text-gray-700 hover:text-red-700"
-      />
+      </div>
+      <div className="visible absolute right-1 z-10 flex text-gray-300">
+        {active && (
+          <TrashIcon
+            onClick={removeChat}
+            className="h-6 w-6 cursor-pointer p-1 hover:text-white"
+          />
+        )}
+      </div>
     </Link>
   );
 }

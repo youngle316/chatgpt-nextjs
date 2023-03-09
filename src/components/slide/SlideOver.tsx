@@ -2,9 +2,9 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import SideBar from '../sideBar/SideBar';
+import SideBar from '../sideBar';
 import { useRecoilState } from 'recoil';
-import { openState } from '@/atom/AtomSlideOver';
+import { openState } from '@/recoil/atom/AtomSlideOver';
 
 function SlideOver() {
   const [open, setOpen] = useRecoilState(openState);

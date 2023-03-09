@@ -1,14 +1,14 @@
 'use client';
 import { Bars3Icon, PlusIcon } from '@heroicons/react/24/outline';
-import { useRecoilState } from 'recoil';
-import { openState } from '@/atom/AtomSlideOver';
+import { useSetRecoilState } from 'recoil';
+import { openState } from '@/recoil/atom/AtomSlideOver';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { db } from '../../service/firebase/firebase';
 
 function TopBar() {
-  const [open, setOpen] = useRecoilState(openState);
+  const setOpen = useSetRecoilState(openState);
 
   const router = useRouter();
 
@@ -31,13 +31,18 @@ function TopBar() {
   };
 
   return (
-    <>
-      <div onClick={showSideBar}>
+    <div className="sticky top-0 z-10 flex items-center border-b border-white/20 bg-gray-800 pl-1 pt-1 text-gray-200 sm:pl-3 md:hidden">
+      <div
+        onClick={showSideBar}
+        className="inline-flex h-10 items-center justify-center px-3"
+      >
         <Bars3Icon className="h-6 w-6" />
       </div>
-      New Chat
-      <PlusIcon onClick={createNewChat} className="h-6 w-6" />
-    </>
+      <h1 className="flex-1 text-center text-base font-normal">New Chat</h1>
+      <div className="px-3">
+        <PlusIcon onClick={createNewChat} className="h-6 w-6" />
+      </div>
+    </div>
   );
 }
 

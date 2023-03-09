@@ -9,5 +9,5 @@ type SessionProviderProps = {
 };
 
 export function SessionProvider({ children, session }: SessionProviderProps) {
-  return <Provider>{children}</Provider>;
+  return <Provider session={session}>{children}</Provider>;
 }
