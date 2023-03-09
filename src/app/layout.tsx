@@ -6,7 +6,6 @@ import { AtomProvider } from '@/provider/AtomProvider';
 import ClientProvider from '@/provider/ClientProvider';
 import SlideOver from '@/components/slide/SlideOver';
 import SideBar from '@/components/sideBar';
-import { Analytics } from '@vercel/analytics/react';
 
 export default async function RootLayout({
   children
@@ -21,7 +20,6 @@ export default async function RootLayout({
       <body>
         <AtomProvider>
           <SessionProvider session={session}>
-            <Analytics />
             <div className="relative h-full w-full overflow-hidden">
               {session && (
                 <div className="sidebar-container">
