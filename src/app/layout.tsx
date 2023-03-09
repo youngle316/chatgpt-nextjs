@@ -6,6 +6,7 @@ import { AtomProvider } from '@/provider/AtomProvider';
 import ClientProvider from '@/provider/ClientProvider';
 import SlideOver from '@/components/slide/SlideOver';
 import SideBar from '@/components/sideBar';
+import Analytic from '@/components/analytics';
 
 export default async function RootLayout({
   children
@@ -30,6 +31,7 @@ export default async function RootLayout({
             </div>
             <ClientProvider />
             <SlideOver />
+            <Analytic />
           </SessionProvider>
         </AtomProvider>
       </body>
