@@ -4,9 +4,8 @@ import { useSession, signOut } from 'next-auth/react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Image from 'next/image';
 import { collection, orderBy, query } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { db } from '../../service/firebase/firebase';
 import ChatRow from './ChatRow';
-import ModelSelection from './ModelSelection';
 
 function SideBar() {
   const { data: session } = useSession();
@@ -20,21 +19,24 @@ function SideBar() {
   );
 
   return (
-    <div className="flex h-full flex-col p-2">
-      <div className="flex-1">
-        <NewChat />
-
-        <div className="my-2 flex flex-col space-y-2">
-          {loading && (
-            <div className="animate-pulse text-center text-white">
-              <p>Loading Chats...</p>
-            </div>
-          )}
-        </div>
-
-        {chats?.docs?.map((doc) => {
-          return <ChatRow key={doc?.id} id={doc?.id} />;
-        })}
+    <div className="flex h-full min-h-0 flex-col">
+      <div className="flex h-full w-full flex-1 items-start border-white/20">
+        <nav className="flex h-full flex-1 flex-col space-y-1 p-2">
+          <NewChat />
+          <div className="flex-1 flex-col overflow-y-auto border-b border-white/20">
+            {loading ? (
+              <div className="animate-pulse text-center text-white">
+                <p>Loading Chats...</p>
+              </div>
+            ) : (
+              <>
+                {chats?.docs?.map((doc) => {
+                  return <ChatRow key={doc?.id} id={doc?.id} />;
+                })}
+              </>
+            )}
+          </div>
+        </nav>
       </div>
       {session && (
         <Image

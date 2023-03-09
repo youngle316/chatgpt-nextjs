@@ -1,6 +1,4 @@
-import Chat from '@/components/Chat';
-import ChatInput from '@/components/ChatInput';
-import TopBar from '@/components/TopBar';
+import ChatPage from '@/views/chat';
 
 type ChatPageProps = {
   params: {
@@ -8,13 +6,12 @@ type ChatPageProps = {
   };
 };
 
-function ChatPage({ params: { id } }: ChatPageProps) {
+function Chat({ params }: ChatPageProps) {
   return (
-    <div className="flex h-screen flex-col overflow-hidden">
-      <Chat chatId={id} />
-      <ChatInput chatId={id} />
-    </div>
+    <>
+      <ChatPage pageId={params.id} />
+    </>
   );
 }
 
-export default ChatPage;
+export default Chat;

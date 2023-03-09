@@ -1,13 +1,11 @@
-import './globals.css';
-import SideBar from '@/components/SideBar';
-import { SessionProvider } from '@/components/SesseionProvider';
+import '../styles/index.css';
+import { SessionProvider } from '@/provider/SesseionProvider';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
-import Login from '@/components/Login';
-import ClientProvider from '@/components/ClientProvider';
-import SlideOver from '@/components/SlideOver';
-import { AtomProvider } from '@/components/AtomProvider';
-import TopBar from '@/components/TopBar';
+import { AtomProvider } from '@/provider/AtomProvider';
+import ClientProvider from '@/provider/ClientProvider';
+import SlideOver from '@/components/slide/SlideOver';
+import SideBar from '@/components/sideBar';
 
 export default async function RootLayout({
   children
@@ -22,29 +20,16 @@ export default async function RootLayout({
       <body>
         <AtomProvider>
           <SessionProvider session={session}>
-            {!session ? (
-              <Login />
-            ) : (
-              <div className="relative flex h-screen flex-col sm:flex-row">
-                {/* sidebar */}
-                <div className="hidden h-screen max-w-xs overflow-y-auto bg-[#202123] md:block md:min-w-[260px]">
+            <div className="relative h-full w-full overflow-hidden">
+              {session && (
+                <div className="sidebar-container">
                   <SideBar />
                 </div>
-
-                <div className="flex w-full flex-col bg-[#343541]">
-                  <div className="sticky top-0 flex h-10 w-full items-center justify-between border-b border-white/20 bg-[#343541] px-4 text-white sm:hidden">
-                    <TopBar />
-                  </div>
-                  {children}
-                </div>
-
-                {/* ClientProvider - Notification */}
-                <ClientProvider />
-
-                {/* SlideOver */}
-                <SlideOver />
-              </div>
-            )}
+              )}
+              {children}
+            </div>
+            <ClientProvider />
+            <SlideOver />
           </SessionProvider>
         </AtomProvider>
       </body>
