@@ -1,19 +1,16 @@
 > Use [chatgpt-api](https://github.com/transitive-bullshit/chatgpt-api) to make a mini ChatGPT
 
+## Screenshots
+
+![home](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230309-fre.png)
+
+![chat](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230309-fr2.png)
+
 ## Intro
 
 This project is mini ChatGPT, use NextJS13, FireBase and [chatgpt-api](https://github.com/transitive-bullshit/chatgpt-api)
 
 Have a try -> [chatgpt.younglele.cn](https://chatgpt.younglele.cn)
-
-## updates
-
-<details>
-   <summary>March 1, 2023</summary>
-   
-   change api from openai api to [chatgpt-api](https://github.com/transitive-bullshit/chatgpt-api)
-   
-</details>
 
 ## Problem
 
