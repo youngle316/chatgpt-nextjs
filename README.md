@@ -80,6 +80,18 @@ copy these code to replace **"firebase.ts"** file
 
 ![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225072554.png)
 
+### Add Redirect Url
+
+1. go to [google cloud console](https://console.cloud.google.com/)
+2. select your project
+3. add redirect url for your project
+
+![](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230310-ej9.png)
+
+![](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230310-ejm.png)
+
+![](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230310-ejx.png)
+
 ### Start Project
 
 ```shell
