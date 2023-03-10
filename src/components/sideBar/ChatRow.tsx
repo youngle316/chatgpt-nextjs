@@ -52,10 +52,10 @@ function ChatRow({ id }: ChatRowProps) {
       className={`chatRow ${active && 'bg-gray-700/50'}`}
     >
       <ChatBubbleLeftIcon className="h-5 w-5" />
-      <div className="relative max-h-5 flex-1 overflow-hidden text-ellipsis break-all">
+      <div className="relative max-h-5 flex-1 overflow-hidden text-ellipsis break-all pr-2">
         {messages?.docs[messages?.docs.length - 1]?.data().text || 'New Chat'}
       </div>
-      <div className="visible absolute right-1 z-10 flex text-gray-300">
+      <div className="visible absolute right-2 z-10 flex text-gray-300">
         {active && (
           <TrashIcon
             onClick={removeChat}
