@@ -1,5 +1,10 @@
+'use client';
+
+import { useRef, useEffect } from 'react';
 import ChatInput from '../chatInput/ChatInput';
 import TopBar from '../topBar/TopBar';
+import { useSetRecoilState } from 'recoil';
+import { showBottomDivRef } from '@/recoil/atom/AtomRef';
 
 type ContentContainerProps = {
   children: React.ReactNode;
@@ -7,6 +12,14 @@ type ContentContainerProps = {
 };
 
 function ContentContainer({ children, pageId }: ContentContainerProps) {
+  const messageEndRef = useRef<null | HTMLDivElement>(null);
+
+  const setShowBottomDivRef = useSetRecoilState(showBottomDivRef);
+
+  useEffect(() => {
+    setShowBottomDivRef(messageEndRef);
+  }, []);
+
   return (
     <div className="main">
       <TopBar />
@@ -17,7 +30,10 @@ function ContentContainer({ children, pageId }: ContentContainerProps) {
               <div className="flex flex-col items-center text-sm dark:bg-gray-800">
                 {children}
               </div>
-              <div className="md-h-48 h-32 w-full flex-shrink-0"></div>
+              <div
+                ref={messageEndRef}
+                className="h-32 w-full flex-shrink-0 md:h-48"
+              ></div>
             </div>
           </div>
         </div>

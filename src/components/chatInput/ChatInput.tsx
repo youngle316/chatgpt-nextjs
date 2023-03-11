@@ -8,7 +8,9 @@ import { toast } from 'react-hot-toast';
 import { db } from '../../service/firebase/firebase';
 import { useRecoilState } from 'recoil';
 import { parentMessageIdState } from '@/recoil/atom/AtomChat';
+import { showBottomDivRef } from '@/recoil/atom/AtomRef';
 import { useRouter } from 'next/navigation';
+import { useScrollToView } from '@/hook/useScrollToView';
 
 type ChatProps = {
   chatId: string;
@@ -18,6 +20,9 @@ function ChatInput({ chatId }: ChatProps) {
   const [prompt, setPrompt] = useState('');
   const { data: session } = useSession();
   const [parentMessageId] = useRecoilState(parentMessageIdState);
+  const [showBottomDiv] = useRecoilState(showBottomDivRef);
+
+  const scrollIntoView = useScrollToView(showBottomDiv);
 
   const router = useRouter();
 
@@ -30,6 +35,8 @@ function ChatInput({ chatId }: ChatProps) {
     const input = prompt.trim();
 
     setPrompt('');
+
+    scrollIntoView();
 
     let pageId = chatId;
 
@@ -85,6 +92,7 @@ function ChatInput({ chatId }: ChatProps) {
       toast.success('ChatGPT has responded!', {
         id: notification
       });
+      scrollIntoView();
     });
   };
 
