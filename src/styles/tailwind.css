@@ -45,4 +45,9 @@
   .sidebar-container {
     @apply hidden h-full bg-gray-900 md:fixed md:inset-0 md:flex md:w-[260px] md:flex-col;
   }
+
+  .scrollDown {
+    @apply absolute right-6 bottom-[124px] z-10 cursor-pointer rounded-full border border-gray-200 bg-gray-50 text-gray-600 
+    dark:border-white/10 dark:bg-white/10 dark:text-gray-200 md:bottom-[120px];
+  }
 }
