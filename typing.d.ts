@@ -1,4 +1,6 @@
 interface Message {
+  fireBaseMessageID?: string;
+  isLoading?: boolean;
   parentMessageId?: string;
   text: string;
   createAt: admin.firestore.Timestamp;

@@ -55,8 +55,6 @@ function ChatInput({ chatId }: ChatProps) {
       pageId = doc.id;
     }
 
-    const notification = toast.loading('ChatGPT is thinking...');
-
     const message: Message = {
       text: input,
       createAt: serverTimestamp(),
@@ -79,23 +77,48 @@ function ChatInput({ chatId }: ChatProps) {
       message
     );
 
-    await fetch('/api/askQuestion', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        prompt: input,
-        chatId: pageId,
-        session,
-        parentMessageId
+    const chatGPTMessage: Message = {
+      isLoading: true,
+      text: 'ChatGPT is thinking...',
+      createAt: serverTimestamp(),
+      user: {
+        _id: 'ChatGPT',
+        name: 'ChatGPT',
+        avatar:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/480px-ChatGPT_logo.svg.png'
+      }
+    };
+
+    await addDoc(
+      collection(
+        db,
+        'users',
+        session?.user?.email!,
+        'chats',
+        pageId,
+        'messages'
+      ),
+      chatGPTMessage
+    )
+      .then((docRef) => {
+        scrollIntoView();
+        fetch('/api/askQuestion', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            prompt: input,
+            chatId: pageId,
+            session,
+            parentMessageId,
+            fireBaseMessageID: docRef.id
+          })
+        });
       })
-    }).then(() => {
-      toast.success('ChatGPT has responded!', {
-        id: notification
+      .then(() => {
+        scrollIntoView();
       });
-      scrollIntoView();
-    });
   };
 
   return (

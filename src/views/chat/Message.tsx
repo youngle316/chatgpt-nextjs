@@ -28,7 +28,11 @@ function Message({ message }: MessageProps) {
 
         <div className="relative flex w-[calc(100%-50px)] flex-col gap-1 md:gap-3 lg:w-[calc(100%-115px)]">
           <div className="flex flex-grow flex-col gap-4">
-            <ConvertToMarkdown content={message.text} />
+            {message?.isLoading ? (
+              <div className="animate-pulse">ChatGPT is thinking...</div>
+            ) : (
+              <ConvertToMarkdown content={message.text} />
+            )}
           </div>
         </div>
       </div>
