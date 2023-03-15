@@ -114,7 +114,12 @@ function ChatInput({ chatId }: ChatProps) {
             parentMessageId,
             fireBaseMessageID: docRef.id
           })
-        });
+        })
+          .then((response) => {
+            console.log('response', response);
+            return response.json();
+          })
+          .then((json) => console.log('json', json));
       })
       .then(() => {
         scrollIntoView();
