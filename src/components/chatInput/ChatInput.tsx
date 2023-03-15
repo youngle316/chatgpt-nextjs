@@ -1,7 +1,13 @@
 'use client';
 
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc
+} from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import { FormEvent, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -114,12 +120,31 @@ function ChatInput({ chatId }: ChatProps) {
             parentMessageId,
             fireBaseMessageID: docRef.id
           })
-        })
-          .then((response) => {
-            console.log('response', response);
-            return response.json();
-          })
-          .then((json) => console.log('json', json));
+        }).then((response) => {
+          if (response.status === 504) {
+            const message = {
+              fireBaseMessageID: docRef.id,
+              isLoading: false,
+              text: 'Server Timeout.',
+              createAt: serverTimestamp()
+            };
+
+            updateDoc(
+              doc(
+                db,
+                'users',
+                session?.user?.email!,
+                'chats',
+                chatId,
+                'messages',
+                docRef.id
+              ),
+              {
+                ...message
+              }
+            );
+          }
+        });
       })
       .then(() => {
         scrollIntoView();
