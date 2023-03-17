@@ -56,10 +56,7 @@ function ContentContainer({ children, pageId }: ContentContainerProps) {
             </div>
           </div>
         </div>
-        <div
-          className="absolute bottom-0 left-0 w-full border-t bg-white dark:border-white/20 dark:bg-gray-800 
-        md:border-t-0 md:border-transparent md:!bg-transparent md:dark:border-transparent"
-        >
+        <div className="chatInput">
           <ChatInput chatId={pageId as string} />
         </div>
       </main>

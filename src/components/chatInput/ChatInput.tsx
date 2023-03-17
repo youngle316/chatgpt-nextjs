@@ -1,7 +1,13 @@
 'use client';
 
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc
+} from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import { FormEvent, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -11,6 +17,8 @@ import { parentMessageIdState } from '@/recoil/atom/AtomChat';
 import { showBottomDivRef } from '@/recoil/atom/AtomRef';
 import { useRouter } from 'next/navigation';
 import { useScrollToView } from '@/hook/useScrollToView';
+import TwitterSvg from 'public/assets/twitter.svg';
+import GitHubSvg from 'public/assets/github.svg';
 
 type ChatProps = {
   chatId: string;
@@ -53,8 +61,6 @@ function ChatInput({ chatId }: ChatProps) {
       pageId = doc.id;
     }
 
-    const notification = toast.loading('ChatGPT is thinking...');
-
     const message: Message = {
       text: input,
       createAt: serverTimestamp(),
@@ -77,23 +83,72 @@ function ChatInput({ chatId }: ChatProps) {
       message
     );
 
-    await fetch('/api/askQuestion', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        prompt: input,
-        chatId: pageId,
-        session,
-        parentMessageId
+    const chatGPTMessage: Message = {
+      isLoading: true,
+      text: 'ChatGPT is thinking...',
+      createAt: serverTimestamp(),
+      user: {
+        _id: 'ChatGPT',
+        name: 'ChatGPT',
+        avatar:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/480px-ChatGPT_logo.svg.png'
+      }
+    };
+
+    await addDoc(
+      collection(
+        db,
+        'users',
+        session?.user?.email!,
+        'chats',
+        pageId,
+        'messages'
+      ),
+      chatGPTMessage
+    )
+      .then((docRef) => {
+        scrollIntoView();
+        fetch('/api/askQuestion', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            prompt: input,
+            chatId: pageId,
+            session,
+            parentMessageId,
+            fireBaseMessageID: docRef.id
+          })
+        }).then((response) => {
+          if (response.status === 504) {
+            const message = {
+              fireBaseMessageID: docRef.id,
+              isLoading: false,
+              text: 'Server Timeout.',
+              createAt: serverTimestamp()
+            };
+
+            updateDoc(
+              doc(
+                db,
+                'users',
+                session?.user?.email!,
+                'chats',
+                chatId,
+                'messages',
+                docRef.id
+              ),
+              {
+                ...message
+              }
+            );
+          }
+        });
       })
-    }).then(() => {
-      toast.success('ChatGPT has responded!', {
-        id: notification
+      .then(() => {
+        scrollIntoView();
       });
-      scrollIntoView();
-    });
   };
 
   return (
@@ -117,15 +172,31 @@ function ChatInput({ chatId }: ChatProps) {
           </div>
         </div>
       </form>
-      <div className="px-3 pt-2 pb-3 text-center text-xs text-black/50 dark:text-white/50 md:px-4 md:pt-3 md:pb-6">
-        Developed using gpt-3.5-turbo API by &nbsp;
+      <div className="flex justify-center gap-3 px-3 pt-2 pb-3 text-center text-xs text-black/50 dark:text-white/50 md:px-4 md:pt-3 md:pb-6">
+        <div>
+          Developed using gpt-3.5-turbo API by &nbsp;
+          <a
+            className="underline"
+            target="_blank"
+            rel="noreferrer"
+            href="https://github.com/transitive-bullshit/chatgpt-api"
+          >
+            chatgpt-api
+          </a>
+        </div>
         <a
-          className="underline"
           target="_blank"
           rel="noreferrer"
-          href="https://github.com/transitive-bullshit/chatgpt-api"
+          href="https://twitter.com/youngle316"
         >
-          chatgpt-api
+          <TwitterSvg className="h-4 w-4" />
+        </a>
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href="https://github.com/youngle316"
+        >
+          <GitHubSvg className="h-4 w-4" />
         </a>
       </div>
     </>
