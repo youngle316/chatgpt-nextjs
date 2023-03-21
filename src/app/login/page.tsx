@@ -24,7 +24,7 @@ function Login() {
             <div className="flex flex-col gap-4">
               <button
                 onClick={() => signIn('google', { callbackUrl: '/' })}
-                className="flex relative w-full items-center justify-center
+                className="relative flex w-full items-center justify-center
               rounded-full border border-[#878787] bg-transparent px-8 py-2 text-center text-base font-bold"
               >
                 <div className="flex items-center justify-center gap-2">
@@ -35,7 +35,7 @@ function Login() {
 
               <button
                 onClick={() => signIn('github', { callbackUrl: '/' })}
-                className="flex relative w-full items-center justify-center
+                className="relative flex w-full items-center justify-center
               rounded-full border border-[#878787] bg-transparent px-8 py-2 text-center text-base font-bold"
               >
                 <div className="flex items-center justify-center gap-2">

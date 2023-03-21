@@ -10,3 +10,10 @@ interface Message {
     avatar: string;
   };
 }
+
+interface ChatContent {
+  title: string;
+  message: any[];
+  userId: string;
+  createAt: any;
+}

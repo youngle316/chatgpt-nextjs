@@ -1,11 +1,13 @@
 import { atom } from 'recoil';
 
-/**
- * This is the state for the parent message id. Track the conversation.
- */
-const parentMessageIdState = atom({
-  key: 'parentMessageIdState',
+const isChatEditState = atom({
+  key: 'isChatEdit',
+  default: false
+});
+
+const oldChatIdState = atom({
+  key: 'oldChatIdState',
   default: ''
 });
 
-export { parentMessageIdState };
+export { isChatEditState, oldChatIdState };

@@ -12,7 +12,7 @@ import { useSession } from 'next-auth/react';
 import { FormEvent, useState } from 'react';
 import { db } from '../../service/firebase/firebase';
 import { useRecoilState } from 'recoil';
-import { parentMessageIdState } from '@/recoil/atom/AtomChat';
+import { parentMessageIdState } from '@/recoil/atom/AtomMessage';
 import { showBottomDivRef } from '@/recoil/atom/AtomRef';
 import { useRouter } from 'next/navigation';
 import { useScrollToView } from '@/hook/useScrollToView';

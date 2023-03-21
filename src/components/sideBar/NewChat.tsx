@@ -14,13 +14,15 @@ function NewChat() {
   const openStateChange = useSetRecoilState(openState);
 
   const createNewChat = async () => {
+    const chatContent: ChatContent = {
+      title: 'Chat Title',
+      message: [],
+      userId: session?.user?.email!,
+      createAt: serverTimestamp()
+    };
     const doc = await addDoc(
       collection(db, 'users', session?.user?.email!, 'chats'),
-      {
-        message: [],
-        userId: session?.user?.email!,
-        createAt: serverTimestamp()
-      }
+      chatContent
     );
     openStateChange(false);
     router.push(`/chat/${doc.id}`);
