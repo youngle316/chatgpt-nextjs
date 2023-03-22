@@ -1,4 +1,5 @@
 interface Message {
+  prompt?: string;
   fireBaseMessageID?: string;
   isLoading?: boolean;
   parentMessageId?: string;

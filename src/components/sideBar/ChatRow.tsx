@@ -21,7 +21,11 @@ import { useEffect, useState } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { db } from '../../service/firebase/firebase';
-import { isChatEditState, oldChatIdState } from '@/recoil/atom/AtomChat';
+import {
+  isChatEditState,
+  oldChatIdState,
+  currentChatIdState
+} from '@/recoil/atom/AtomChat';
 
 type ChatRowProps = {
   id: string;
@@ -38,6 +42,7 @@ function ChatRow({ id, chatContentData }: ChatRowProps) {
   const openStateChange = useSetRecoilState(openState);
   const [isChatEdit, setIsChatEdit] = useRecoilState(isChatEditState);
   const [oldChatId, setOldChatId] = useRecoilState(oldChatIdState);
+  const setCurrentChatId = useSetRecoilState(currentChatIdState);
 
   const [messages] = useCollection(
     query(
@@ -68,6 +73,7 @@ function ChatRow({ id, chatContentData }: ChatRowProps) {
   };
 
   const linkToChat = () => {
+    setCurrentChatId(id);
     openStateChange(false);
   };
 

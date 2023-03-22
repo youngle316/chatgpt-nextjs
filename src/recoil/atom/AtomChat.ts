@@ -10,4 +10,9 @@ const oldChatIdState = atom({
   default: ''
 });
 
-export { isChatEditState, oldChatIdState };
+const currentChatIdState = atom({
+  key: 'currentChatIdState',
+  default: ''
+});
+
+export { isChatEditState, oldChatIdState, currentChatIdState };

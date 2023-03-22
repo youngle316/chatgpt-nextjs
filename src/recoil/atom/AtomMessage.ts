@@ -7,5 +7,12 @@ const parentMessageIdState = atom({
   key: 'parentMessageIdState',
   default: ''
 });
+/**
+ * This is the state for the generate message. If true, generating a new message.
+ */
+const isGenerateState = atom({
+  key: 'isGenerateState',
+  default: false
+});
 
-export { parentMessageIdState };
+export { parentMessageIdState, isGenerateState };

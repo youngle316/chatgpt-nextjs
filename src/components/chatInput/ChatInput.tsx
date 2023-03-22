@@ -12,11 +12,15 @@ import { useSession } from 'next-auth/react';
 import { FormEvent, useState } from 'react';
 import { db } from '../../service/firebase/firebase';
 import { useRecoilState } from 'recoil';
-import { parentMessageIdState } from '@/recoil/atom/AtomMessage';
+import {
+  parentMessageIdState,
+  isGenerateState
+} from '@/recoil/atom/AtomMessage';
 import { showBottomDivRef } from '@/recoil/atom/AtomRef';
 import { useRouter } from 'next/navigation';
 import { useScrollToView } from '@/hook/useScrollToView';
 import Footer from '../Footer';
+import { chatGPTIsThinking, timeoutMessage } from '@/utils/message';
 
 type ChatProps = {
   chatId: string;
@@ -27,6 +31,7 @@ function ChatInput({ chatId }: ChatProps) {
   const { data: session } = useSession();
   const [parentMessageId] = useRecoilState(parentMessageIdState);
   const [showBottomDiv] = useRecoilState(showBottomDivRef);
+  const [isGenerate, setIsGenerate] = useRecoilState(isGenerateState);
 
   const scrollIntoView = useScrollToView(showBottomDiv);
 
@@ -82,8 +87,9 @@ function ChatInput({ chatId }: ChatProps) {
     );
 
     const chatGPTMessage: Message = {
+      prompt: input,
       isLoading: true,
-      text: 'ChatGPT is thinking...',
+      text: chatGPTIsThinking,
       createAt: serverTimestamp(),
       user: {
         _id: 'ChatGPT',
@@ -106,6 +112,7 @@ function ChatInput({ chatId }: ChatProps) {
     )
       .then((docRef) => {
         scrollIntoView();
+        setIsGenerate(true);
         fetch('/api/askQuestion', {
           method: 'POST',
           headers: {
@@ -118,31 +125,33 @@ function ChatInput({ chatId }: ChatProps) {
             parentMessageId,
             fireBaseMessageID: docRef.id
           })
-        }).then((response) => {
-          if (response.status === 504) {
-            const message = {
-              fireBaseMessageID: docRef.id,
-              isLoading: false,
-              text: 'Server Timeout.',
-              createAt: serverTimestamp()
-            };
+        })
+          .then((response) => {
+            if (response.status === 504) {
+              const message = {
+                isLoading: false,
+                text: timeoutMessage
+              };
 
-            updateDoc(
-              doc(
-                db,
-                'users',
-                session?.user?.email!,
-                'chats',
-                chatId,
-                'messages',
-                docRef.id
-              ),
-              {
-                ...message
-              }
-            );
-          }
-        });
+              updateDoc(
+                doc(
+                  db,
+                  'users',
+                  session?.user?.email!,
+                  'chats',
+                  chatId,
+                  'messages',
+                  docRef.id
+                ),
+                {
+                  ...message
+                }
+              );
+            }
+          })
+          .finally(() => {
+            setIsGenerate(false);
+          });
       })
       .then(() => {
         scrollIntoView();
@@ -159,6 +168,7 @@ function ChatInput({ chatId }: ChatProps) {
           <div className="ml-1 mt-1.5 flex justify-center gap-0 md:m-auto md:mb-2 md:w-full md:gap-2"></div>
           <div className="chat-textarea-container">
             <input
+              disabled={isGenerate}
               className="chat-textarea"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
