@@ -1,11 +1,11 @@
 'use client';
 import NewChat from './NewChat';
-import { useSession, signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import Image from 'next/image';
 import { collection, orderBy, query } from 'firebase/firestore';
 import { db } from '../../service/firebase/firebase';
 import ChatRow from './ChatRow';
+import Setting from '../setting';
 
 function SideBar() {
   const { data: session } = useSession();
@@ -48,16 +48,7 @@ function SideBar() {
           </div>
         </nav>
       </div>
-      {session && (
-        <Image
-          onClick={() => signOut()}
-          width={48}
-          height={48}
-          src={session.user?.image!}
-          alt="image"
-          className="mx-auto mb-2 cursor-pointer rounded-full hover:opacity-50"
-        />
-      )}
+      {session && <Setting />}
     </div>
   );
 }
