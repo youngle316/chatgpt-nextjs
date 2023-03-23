@@ -5,7 +5,7 @@ function Footer() {
   return (
     <>
       <div>
-        Developed using gpt-3.5-turbo API by &nbsp;
+        使用 gpt-3.5-turbo API 来自 &nbsp;
         <a
           className="underline"
           target="_blank"
