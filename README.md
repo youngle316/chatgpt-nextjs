@@ -1,26 +1,26 @@
-> Use [chatgpt-api](https://github.com/transitive-bullshit/chatgpt-api) to make a mini ChatGPT
+> 像官方 ChatGPT 一样去使用，再加入更强大的功能
 
-## Screenshots
+## 屏幕截图
 
-![home](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230309-fre.png)
+![home](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230323-jfk.png)
 
-![chat](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230309-fr2.png)
+![chat](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230323-jeh.png)
 
-## Intro
+## 简介
 
-This project is mini ChatGPT, use NextJS13, FireBase and [chatgpt-api](https://github.com/transitive-bullshit/chatgpt-api)
+使用 Next.js13、TailwindCSS 搭建项目，使用 Firebase 存储数据以及 [chatgpt-api](https://github.com/transitive-bullshit/chatgpt-api) 获取数据
 
-Have a try -> [chatgpt.younglele.cn](https://chatgpt.younglele.cn)
+可放心食用 -> [chatgpt.younglele.cn](https://chatgpt.younglele.cn)
 
-## Problem
+## 问题
 
-:warning:The project is deployed using Vercel, because I am a hobby user, _the Serverless Function Execution Timeout (Seconds)_ is 10s([General Limits](https://vercel.com/docs/concepts/limits/overview)), so when the api response time is greater than 10s, nothing will be displayed
+❗ 项目部署在 Vercel 上，由于我是 hobby 用户，_the Serverless Function Execution Timeout (Seconds)_ 是 10s ([一般限制](https://vercel.com/docs/concepts/limits/overview))，所以当 api 响应时间超过 10s 后，就不会返回任何消息，显示 504 超时
 
-## How to use
+## 如何使用
 
-### get token and keys
+### 创建 环境变量 文件
 
-1. Create a file named **".env.local"** at the root dir.
+在根目录下创建一个名为 **".env.local"** 的文件
 
 ```shell
 GOOGLE_ID=
@@ -30,72 +30,55 @@ OPENAI_API_KEY=
 FIREBASE_SERVICE_ACCOUNT_KEY=
 ```
 
-you should follow the step to get your key
+### 获取 OPENAI_API_KEY
 
-1. Firstly, you should have an OpenAi account, and get your token.(This is the **OPENAI_API_KEY**)
+在 [openai platform](https://platform.openai.com/account/api-keys) 获取 `OPENAI_API_KEY`
 
-![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225064458.png)
+### 通过 Firebase 获取 GOOGLE_ID 和 GOOGLE_SECRET
 
-![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225064547.png)
+1.  使用 [Firebase](https://console.firebase.google.com) 创建项目
+2.  跳转到 **Authentication** 目录
+3.  点击 Sign-in method 页签
+4.  选择 Google 并保存
+5.  Web SDK 配置中的 ID 和密钥分别对应 **GOOGLE_ID** 和 **GOOGLE_SECRET**
 
-2. secondly, use google for auth
-   1. use [Firebase](https://console.firebase.google.com) to create a project
-   2. move to the **Authentication** part
-   3. select Google and save
-   4. get the **GOOGLE_ID** and **GOOGLE_SECRET**
+### 获取 FIREBASE_SERVICE_ACCOUNT_KEY
 
-![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225070034.png)
+1. 进入项目设置
+2. 在服务账号页签下点击生成新的私钥
+3. 打开[textfixer](https://www.textfixer.com/tools/remove-line-breaks.php)网站
+4. 将下载的文件中的内容复制到输入框中获取没有换行符的私钥
+5. 这个私钥就是最终要使用的 `FIREBASE_SERVICE_ACCOUNT_KEY`
 
-![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225070106.png)
+### 修改 Firebase 配置
 
-![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225070234.png)
+1. 打开项目设置
+2. 在常规页签下创建 Web 应用
+3. 将创建成功后获取的 SDK 中的 firebaseConfig 对象替换 "firebase.ts" 文件中的对应部分
 
-![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225070411.png)
+### 创建 Firebase 数据库
 
-3. thirdly, get your FIREBASE_SERVICE_ACCOUNT_KEY
+1. 打开 Firestore Database 目录
+2. 点击创建创建数据库
 
-![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225070613.png)
+### 添加 Google 登录验证
 
-![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225071318.png)
-
-download your secret key file and open it, then copy them, open this website [textfixer](https://www.textfixer.com/tools/remove-line-breaks.php) and remove line breaks
-
-![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225071638.png)
-
-then get the new text and that is **FIREBASE_SERVICE_ACCOUNT_KEY**
-
-### Change firebaseConfig
-
-![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225072021.png)
-
-![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225072037.png)
-
-then create one
-
-![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225072247.png)
-
-copy these code to replace **"firebase.ts"** file
-
-### Create Firestore Database
-
-![image.png](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/20230225072554.png)
-
-### Add Redirect Url
-
-1. go to [google cloud console](https://console.cloud.google.com/)
-2. select your project
-3. add redirect url for your project
-
-![](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230310-ej9.png)
-
-![](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230310-ejm.png)
+1. 登录 [google cloud console](https://console.cloud.google.com/)
+2. 选择你在 Firebase 创建的项目（不显示可以进行搜索就可以找到）
+3. 点击 API 和服务 -> 凭证
+4. 选择 OAuth2.0 客户端 ID
+5. 将需要授权的 url 添加到重定向的 url
 
 ![](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230310-ejx.png)
 
-### Start Project
+### 启动项目
 
 ```shell
 npm install
 
 npm run dev
 ```
+
+## 赞助
+
+给个 `Star` ⭐ 就行了
