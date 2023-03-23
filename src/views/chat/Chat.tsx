@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../../service/firebase/firebase';
 import Message from './Message';
-import { parentMessageIdState } from '@/recoil/atom/AtomChat';
+import { parentMessageIdState } from '@/recoil/atom/AtomMessage';
 import Description from '@/components/description';
 
 type ChatProps = {

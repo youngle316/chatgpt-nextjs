@@ -1,4 +1,5 @@
 interface Message {
+  prompt?: string;
   fireBaseMessageID?: string;
   isLoading?: boolean;
   parentMessageId?: string;
@@ -9,4 +10,11 @@ interface Message {
     name: string;
     avatar: string;
   };
+}
+
+interface ChatContent {
+  title: string;
+  message: any[];
+  userId: string;
+  createAt: any;
 }
