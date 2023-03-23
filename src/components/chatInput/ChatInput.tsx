@@ -20,7 +20,8 @@ import { showBottomDivRef } from '@/recoil/atom/AtomRef';
 import { useRouter } from 'next/navigation';
 import { useScrollToView } from '@/hook/useScrollToView';
 import Footer from '../Footer';
-import { chatGPTIsThinking, timeoutMessage } from '@/utils/message';
+import { chatGPTIsThinking } from '@/utils/message';
+import { fetchAskQuestion } from '@/api/chatgptApi/fetchData';
 
 type ChatProps = {
   chatId: string;
@@ -113,45 +114,17 @@ function ChatInput({ chatId }: ChatProps) {
       .then((docRef) => {
         scrollIntoView();
         setIsGenerate(true);
-        fetch('/api/askQuestion', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
+        fetchAskQuestion({
+          message: {
             prompt: input,
-            chatId: pageId,
-            session,
             parentMessageId,
             fireBaseMessageID: docRef.id
-          })
-        })
-          .then((response) => {
-            if (response.status === 504) {
-              const message = {
-                isLoading: false,
-                text: timeoutMessage
-              };
-
-              updateDoc(
-                doc(
-                  db,
-                  'users',
-                  session?.user?.email!,
-                  'chats',
-                  chatId,
-                  'messages',
-                  docRef.id
-                ),
-                {
-                  ...message
-                }
-              );
-            }
-          })
-          .finally(() => {
-            setIsGenerate(false);
-          });
+          },
+          currentChatId: pageId,
+          session
+        }).finally(() => {
+          setIsGenerate(false);
+        });
       })
       .then(() => {
         scrollIntoView();
