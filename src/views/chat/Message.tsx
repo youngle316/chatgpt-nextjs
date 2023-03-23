@@ -5,13 +5,23 @@ import {
   updateDoc
 } from 'firebase/firestore';
 import ConvertToMarkdown from '@/components/markdown';
-import { ArrowPathIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowPathIcon,
+  ClipboardDocumentIcon
+} from '@heroicons/react/24/outline';
 import { db } from '../../service/firebase/firebase';
 import { useSession } from 'next-auth/react';
 import { useRecoilState } from 'recoil';
 import { currentChatIdState } from '@/recoil/atom/AtomChat';
 import { isGenerateState } from '@/recoil/atom/AtomMessage';
-import { chatGPTIsThinking, timeoutMessage } from '@/utils/message';
+import {
+  chatGPTIsThinking,
+  copyToClipboardFail,
+  copyToClipboardSuccess
+} from '@/utils/message';
+import useCopyToClipboard from '@/hook/useCopyToClipboard';
+import toast from 'react-hot-toast';
+import { fetchAskQuestion } from '@/api/chatgptApi/fetchData';
 
 type MessageProps = {
   message: DocumentData;
@@ -24,6 +34,8 @@ function Message({ message }: MessageProps) {
 
   const [currentChatId] = useRecoilState(currentChatIdState);
   const [isGenerate, setIsGenerate] = useRecoilState(isGenerateState);
+
+  const [, copy] = useCopyToClipboard();
 
   const regeneratedMessage = async () => {
     await updateDoc(
@@ -39,51 +51,29 @@ function Message({ message }: MessageProps) {
       {
         ...{
           isLoading: true,
-          text: chatGPTIsThinking,
-          createAt: serverTimestamp()
+          text: chatGPTIsThinking
         }
       }
     ).then(() => {
       setIsGenerate(true);
-      fetch('/api/askQuestion', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          prompt: message.prompt,
-          chatId: currentChatId,
-          session,
-          parentMessageId: message.parentMessageId,
-          fireBaseMessageID: message.fireBaseMessageID
-        })
-      })
-        .then((response) => {
-          if (response.status === 504) {
-            const errorMessage = {
-              isLoading: false,
-              text: timeoutMessage
-            };
+      fetchAskQuestion({
+        message,
+        session,
+        currentChatId,
+        isGenerate: true
+      }).finally(() => {
+        setIsGenerate(false);
+      });
+    });
+  };
 
-            updateDoc(
-              doc(
-                db,
-                'users',
-                session?.user?.email!,
-                'chats',
-                currentChatId,
-                'messages',
-                message.fireBaseMessageID
-              ),
-              {
-                ...errorMessage
-              }
-            );
-          }
-        })
-        .finally(() => {
-          setIsGenerate(false);
-        });
+  const copyMessage = () => {
+    copy(message.text).then((response) => {
+      if (response) {
+        toast.success(copyToClipboardSuccess);
+      } else {
+        toast.error(copyToClipboardFail);
+      }
     });
   };
 
@@ -117,15 +107,15 @@ function Message({ message }: MessageProps) {
             </div>
           </div>
           <div className="flex justify-between">
-            {/* 
+            <div
+              className="mt-2 flex justify-center gap-3 self-end text-gray-400 md:gap-4 
+              lg:absolute lg:top-0 lg:right-0 lg:mt-0 lg:translate-x-full lg:gap-1 lg:self-center lg:pl-2"
+            >
+              {/* 
               Due to the previous version not adding the field 'prompt', 
               only those with this field can be regenerated. 
             */}
-            {isChatGPT && !!message?.prompt && (
-              <div
-                className="mt-2 flex justify-center gap-3 self-end text-gray-400 md:gap-4 
-              lg:absolute lg:top-0 lg:right-0 lg:mt-0 lg:translate-x-full lg:gap-1 lg:self-center lg:pl-2"
-              >
+              {isChatGPT && !!message?.prompt && (
                 <button
                   disabled={isGenerate}
                   onClick={regeneratedMessage}
@@ -133,8 +123,18 @@ function Message({ message }: MessageProps) {
                 >
                   <ArrowPathIcon className="h-4 w-4" />
                 </button>
-              </div>
-            )}
+              )}
+
+              {isChatGPT && (
+                <button
+                  disabled={isGenerate}
+                  onClick={copyMessage}
+                  className="message-button-icon"
+                >
+                  <ClipboardDocumentIcon className="h-4 w-4" />
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
