@@ -38,7 +38,7 @@ function TopBar() {
       >
         <Bars3Icon className="h-6 w-6" />
       </div>
-      <h1 className="flex-1 text-center text-base font-normal">New Chat</h1>
+      <h1 className="flex-1 text-center text-base font-normal">新建会话</h1>
       <div className="px-3">
         <PlusIcon onClick={createNewChat} className="h-6 w-6" />
       </div>
