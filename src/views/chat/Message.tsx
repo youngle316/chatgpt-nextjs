@@ -1,4 +1,9 @@
-import { doc, DocumentData, updateDoc } from 'firebase/firestore';
+import {
+  doc,
+  DocumentData,
+  serverTimestamp,
+  updateDoc
+} from 'firebase/firestore';
 import ConvertToMarkdown from '@/components/markdown';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { db } from '../../service/firebase/firebase';
@@ -32,7 +37,11 @@ function Message({ message }: MessageProps) {
         message.fireBaseMessageID
       ),
       {
-        ...{ isLoading: true, text: chatGPTIsThinking }
+        ...{
+          isLoading: true,
+          text: chatGPTIsThinking,
+          createAt: serverTimestamp()
+        }
       }
     ).then(() => {
       setIsGenerate(true);
@@ -96,7 +105,12 @@ function Message({ message }: MessageProps) {
           </div>
         </div>
 
-        <div className="relative flex w-[calc(100%-50px)] flex-col gap-1 md:gap-3 lg:w-[calc(100%-115px)]">
+        <div className="relative flex w-[calc(100%-50px)] flex-col gap-1 md:gap-1 lg:w-[calc(100%-115px)]">
+          <div className="text-xs text-black/50 dark:text-white/50">
+            {message?.createAt
+              ? new Date(message?.createAt?.seconds * 1000).toLocaleString()
+              : ''}
+          </div>
           <div className="flex flex-grow flex-col gap-4">
             <div className={`${message.isLoading && 'animate-pulse'}`}>
               <ConvertToMarkdown content={message.text} />
