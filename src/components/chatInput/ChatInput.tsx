@@ -1,15 +1,13 @@
 'use client';
 
-import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import {
-  addDoc,
-  collection,
-  doc,
-  serverTimestamp,
-  updateDoc
-} from 'firebase/firestore';
+  PaperAirplaneIcon,
+  LanguageIcon,
+  ArrowPathIcon
+} from '@heroicons/react/24/outline';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { db } from '../../service/firebase/firebase';
 import { useRecoilState } from 'recoil';
 import {
@@ -22,13 +20,21 @@ import { useScrollToView } from '@/hook/useScrollToView';
 import Footer from '../Footer';
 import { chatGPTIsThinking } from '@/utils/message';
 import { fetchAskQuestion } from '@/api/chatgptApi/fetchData';
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 
 type ChatProps = {
   chatId: string;
 };
 
+type TranslateResult = {
+  result: { text: string; detectedSourceLang: string };
+};
+
 function ChatInput({ chatId }: ChatProps) {
   const [prompt, setPrompt] = useState('');
+  const [translating, setTranslating] = useState(false);
+
   const { data: session } = useSession();
   const [parentMessageId] = useRecoilState(parentMessageIdState);
   const [showBottomDiv] = useRecoilState(showBottomDivRef);
@@ -38,8 +44,10 @@ function ChatInput({ chatId }: ChatProps) {
 
   const router = useRouter();
 
-  const sendMessage = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const sendMessage = async (e: any) => {
+    if (e) {
+      e.preventDefault();
+    }
     if (!prompt) {
       return;
     }
@@ -131,23 +139,79 @@ function ChatInput({ chatId }: ChatProps) {
       });
   };
 
+  const chatTextAreaChange = (e: any) => {
+    setPrompt(e.target.value);
+    const chat = document.getElementById('chatTextArea');
+    if (chat) {
+      chat.style.height = '24px';
+      chat.style.height = chat.scrollHeight + 'px';
+    }
+  };
+
+  const chatTextAreaKeyDown = (e: any) => {
+    // shift + enter
+    if (e.shiftKey === true && e.keyCode === 13) {
+      sendMessage(e);
+    }
+  };
+
+  const translateToEnglish = (e: any) => {
+    e.preventDefault();
+    setTranslating(true);
+    if (!prompt) {
+      return;
+    }
+
+    fetch('/api/deeplTranslate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        prompt
+      })
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res: TranslateResult) => {
+        setPrompt(res.result.text);
+      })
+      .finally(() => {
+        setTranslating(false);
+      });
+  };
+
   return (
     <>
-      <form
-        onSubmit={sendMessage}
-        className="mx-2 flex flex-row gap-3 pt-2 last:mb-2 md:last:mb-6 lg:mx-auto lg:max-w-3xl lg:pt-6"
-      >
+      <form className="mx-2 flex flex-row gap-3 pt-2 last:mb-2 md:last:mb-6 lg:mx-auto lg:max-w-3xl lg:pt-6">
         <div className="relative flex h-full flex-1 md:flex-col">
           <div className="ml-1 mt-1.5 flex justify-center gap-0 md:m-auto md:mb-2 md:w-full md:gap-2"></div>
           <div className="chat-textarea-container">
-            <input
+            {translating ? (
+              <button disabled className="chat-textarea-setting-button">
+                <ArrowPathIcon className="h-5 w-5 animate-spin" />
+              </button>
+            ) : (
+              <button
+                onClick={translateToEnglish}
+                className="chat-textarea-setting-button"
+              >
+                <LanguageIcon className="h-5 w-5" />
+              </button>
+            )}
+
+            <textarea
+              id="chatTextArea"
+              style={{ maxHeight: '200px', height: '24px' }}
               disabled={isGenerate}
               className="chat-textarea"
               value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              type="text"
+              onChange={chatTextAreaChange}
+              onKeyDown={chatTextAreaKeyDown}
+              placeholder="来写点什么吧。(Shift + Enter 发送消息)"
             />
-            <button className="chat-textarea-button" type="submit">
+            <button className="chat-textarea-send-button" onClick={sendMessage}>
               <PaperAirplaneIcon className="m-1 h-4 w-4 -rotate-45" />
             </button>
           </div>
