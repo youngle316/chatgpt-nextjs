@@ -38,7 +38,11 @@ const fetchAskQuestion = async ({
   })
     .then((response) => {
       if (response.status !== 200) {
-        let resultMessage = { isLoading: false, text: serverErrorMessage };
+        let resultMessage = {
+          isLoading: false,
+          text: serverErrorMessage,
+          fireBaseMessageID: message.fireBaseMessageID
+        };
         if (!isGenerate) {
           resultMessage = Object.assign(resultMessage, {
             createAt: serverTimestamp()
