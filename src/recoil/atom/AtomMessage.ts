@@ -15,4 +15,19 @@ const isGenerateState = atom({
   default: false
 });
 
-export { parentMessageIdState, isGenerateState };
+const chatInputPromptState = atom({
+  key: 'chatInputPromptState',
+  default: ''
+});
+
+const promptLibModalState = atom({
+  key: 'promptLibModalState',
+  default: false
+});
+
+export {
+  parentMessageIdState,
+  isGenerateState,
+  chatInputPromptState,
+  promptLibModalState
+};

@@ -89,4 +89,16 @@
   .setting-icon {
     @apply flex cursor-pointer items-center gap-3 rounded-md py-3 px-3 text-sm text-white duration-200 hover:bg-gray-500/10;
   }
+
+  .common-button {
+    @apply inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold 
+    text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+  }
+
+  .indigo-button {
+    @apply common-button bg-indigo-600 hover:bg-indigo-500  focus-visible:outline-indigo-600;
+  }
+  .blue-button {
+    @apply common-button bg-blue-600 hover:bg-blue-500  focus-visible:outline-blue-600;
+  }
 }

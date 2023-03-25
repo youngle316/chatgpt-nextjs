@@ -18,3 +18,16 @@ interface ChatContent {
   userId: string;
   createAt: any;
 }
+
+interface Prompt {
+  title: string;
+  des: string;
+  content: string;
+  source: string;
+}
+
+interface Prompts {
+  type: 'en' | 'cn';
+  address: string;
+  prompts: Prompt[];
+}
