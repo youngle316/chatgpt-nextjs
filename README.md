@@ -2,9 +2,11 @@
 
 ## 屏幕截图
 
-![home](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230323-jfk.png)
+![home](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230325-v2w.png)
 
-![chat](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230323-jeh.png)
+![prompt](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230325-v36.png)
+
+![chat](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230325-v3n.png)
 
 ## 简介
 
