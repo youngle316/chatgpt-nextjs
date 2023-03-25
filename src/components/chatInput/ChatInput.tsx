@@ -157,10 +157,11 @@ function ChatInput({ chatId }: ChatProps) {
 
   const translateToEnglish = (e: any) => {
     e.preventDefault();
-    setTranslating(true);
+
     if (!prompt) {
       return;
     }
+    setTranslating(true);
 
     fetch('/api/deeplTranslate', {
       method: 'POST',
