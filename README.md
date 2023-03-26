@@ -16,7 +16,9 @@
 
 ## 问题
 
-❗ 项目部署在 Vercel 上，由于我是 hobby 用户，_the Serverless Function Execution Timeout (Seconds)_ 是 10s ([一般限制](https://vercel.com/docs/concepts/limits/overview))，所以当 api 响应时间超过 10s 后，就不会返回任何消息，显示 504 超时
+升级到了 Vercel Pro，超时时间现在为 60s 了
+
+❗ ~~项目部署在 Vercel 上，由于我是 hobby 用户，_the Serverless Function Execution Timeout (Seconds)_ 是 10s ([一般限制](https://vercel.com/docs/concepts/limits/overview))，所以当 api 响应时间超过 10s 后，就不会返回任何消息，显示 504 超时~~
 
 ## 如何使用
 
