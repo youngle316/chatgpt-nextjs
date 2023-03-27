@@ -1,0 +1,46 @@
+{
+  "sideBar": {
+    "newChat": "New Chat",
+    "loadingChats": "Loading Chats...",
+    "feedback": "Feedback",
+    "versionInfo": "Version Information",
+    "logout": "Logout"
+  },
+  "LocaleSwitcher": {
+    "switchLocale": "切换到 {locale, select, zh {中文} en {English} other {Unknown}}"
+  },
+  "login": {
+    "logo": "ChatGPT",
+    "login": "To continue, login in to ChatGPT",
+    "loginWithGoogle": "Login with Google",
+    "loginWithGitHub": "Login with GitHub"
+  },
+  "footer": {
+    "apiFrom": "Use the gpt-3.5-turbo API from"
+  },
+  "message": {
+    "chatgpt": "ChatGPT",
+    "example": "Example",
+    "exampleOne": "Simple Explanation of Quantum Computing",
+    "exampleTwo": "Write a Seven-Day Fitness Meal Plan",
+    "exampleThree": "How to Make an HTTP Request in JS",
+    "capabilities": "Capabilities",
+    "capabilitiesOne": "Context tracking",
+    "capabilitiesTwo": "Dialogue storage using Firebase",
+    "capabilitiesThree": "Use of Prompt library",
+    "suggestion": "Limitations",
+    "suggestionOne": "Create dialogue in English",
+    "suggestionTwo": "Regenerating dialogue will lose context",
+    "suggestionThree": "More new features are under development..."
+  },
+  "prompt": {
+    "promptPlaceHolder": "Shift + Enter Send Prompt",
+    "serverErrorMessage": "Server Error",
+    "chatGPTIsThinking": "ChatGPT is thinking...",
+    "copyToClipboardSuccess": "Copied to clipboard!",
+    "copyToClipboardFail": "Copy failed!",
+    "promptLib": "Prompt Library",
+    "closePromptLib": "close",
+    "usePrompt": "use"
+  }
+}

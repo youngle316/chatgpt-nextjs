@@ -14,14 +14,10 @@ import { useSession } from 'next-auth/react';
 import { useRecoilState } from 'recoil';
 import { currentChatIdState } from '@/recoil/atom/AtomChat';
 import { isGenerateState } from '@/recoil/atom/AtomMessage';
-import {
-  chatGPTIsThinking,
-  copyToClipboardFail,
-  copyToClipboardSuccess
-} from '@/utils/message';
 import useCopyToClipboard from '@/hook/useCopyToClipboard';
 import toast from 'react-hot-toast';
 import { fetchAskQuestion } from '@/api/chatgptApi/fetchData';
+import { useTranslations } from 'next-intl';
 
 type MessageProps = {
   message: DocumentData;
@@ -34,6 +30,8 @@ function Message({ message }: MessageProps) {
 
   const [currentChatId] = useRecoilState(currentChatIdState);
   const [isGenerate, setIsGenerate] = useRecoilState(isGenerateState);
+
+  const t = useTranslations('prompt');
 
   const [, copy] = useCopyToClipboard();
 
@@ -51,12 +49,13 @@ function Message({ message }: MessageProps) {
       {
         ...{
           isLoading: true,
-          text: chatGPTIsThinking
+          text: t('chatGPTIsThinking')
         }
       }
     ).then(() => {
       setIsGenerate(true);
       fetchAskQuestion({
+        translate: t,
         message,
         session,
         currentChatId,
@@ -70,9 +69,9 @@ function Message({ message }: MessageProps) {
   const copyMessage = () => {
     copy(message.text).then((response) => {
       if (response) {
-        toast.success(copyToClipboardSuccess);
+        toast.success(t('copyToClipboardSuccess'));
       } else {
-        toast.error(copyToClipboardFail);
+        toast.error(t('copyToClipboardFail'));
       }
     });
   };

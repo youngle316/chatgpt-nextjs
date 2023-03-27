@@ -6,11 +6,14 @@ import { collection, orderBy, query } from 'firebase/firestore';
 import { db } from '../../service/firebase/firebase';
 import ChatRow from './ChatRow';
 import Setting from '../setting';
+import { useTranslations } from 'next-intl';
 
 function SideBar() {
   const { data: session } = useSession();
 
-  const [chats, loading, error] = useCollection(
+  const t = useTranslations('sideBar');
+
+  const [chats, loading] = useCollection(
     session &&
       query(
         collection(db, 'users', session?.user?.email!, 'chats'),
@@ -30,7 +33,7 @@ function SideBar() {
           <div className="flex-1 flex-col overflow-y-auto border-b border-white/20">
             {loading ? (
               <div className="flex h-full animate-pulse items-center justify-center text-center text-white">
-                <p>Loading Chats...</p>
+                <p>{t('loadingChats')}</p>
               </div>
             ) : (
               <>

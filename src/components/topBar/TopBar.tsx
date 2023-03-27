@@ -6,6 +6,7 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { db } from '../../service/firebase/firebase';
+import useRouterAddLocale from '@/hook/useRouterAddLocale';
 
 function TopBar() {
   const setOpen = useSetRecoilState(openState);
@@ -13,6 +14,8 @@ function TopBar() {
   const router = useRouter();
 
   const { data: session } = useSession();
+
+  const routerAddLocale = useRouterAddLocale();
 
   const showSideBar = () => {
     setOpen(true);
@@ -27,7 +30,7 @@ function TopBar() {
         createAt: serverTimestamp()
       }
     );
-    router.push(`/chat/${doc.id}`);
+    router.push(`${routerAddLocale}/chat/${doc.id}`);
   };
 
   return (

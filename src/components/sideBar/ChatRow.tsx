@@ -26,6 +26,7 @@ import {
   oldChatIdState,
   currentChatIdState
 } from '@/recoil/atom/AtomChat';
+import useRouterAddLocale from '@/hook/useRouterAddLocale';
 
 type ChatRowProps = {
   id: string;
@@ -43,6 +44,8 @@ function ChatRow({ id, chatContentData }: ChatRowProps) {
   const [isChatEdit, setIsChatEdit] = useRecoilState(isChatEditState);
   const [oldChatId, setOldChatId] = useRecoilState(oldChatIdState);
   const setCurrentChatId = useSetRecoilState(currentChatIdState);
+
+  const routerAddLocale = useRouterAddLocale();
 
   const [messages] = useCollection(
     query(
@@ -112,7 +115,11 @@ function ChatRow({ id, chatContentData }: ChatRowProps) {
   return (
     <Link
       onClick={linkToChat}
-      href={isChatEdit ? `/chat/${oldChatId}` : `/chat/${id}`}
+      href={
+        isChatEdit
+          ? `${routerAddLocale}/chat/${oldChatId}`
+          : `${routerAddLocale}/chat/${id}`
+      }
       className={`chatRow ${active && 'bg-gray-700/50'}`}
     >
       <ChatBubbleLeftIcon className="h-5 w-5" />

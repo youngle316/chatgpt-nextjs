@@ -1,6 +1,9 @@
 import { BanknotesIcon } from '@heroicons/react/24/outline';
+import { useTranslations } from 'next-intl';
 
 function ChangeLog() {
+  const t = useTranslations('sideBar');
+
   return (
     <a
       className="setting-icon"
@@ -9,7 +12,7 @@ function ChangeLog() {
       rel="noreferrer"
     >
       <BanknotesIcon className="h-4 w-4" />
-      版本日志
+      {t('versionInfo')}
     </a>
   );
 }

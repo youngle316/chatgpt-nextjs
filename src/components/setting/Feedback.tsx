@@ -1,6 +1,9 @@
 import { EnvelopeIcon } from '@heroicons/react/24/outline';
+import { useTranslations } from 'next-intl';
 
 function Feedback() {
+  const t = useTranslations('sideBar');
+
   return (
     <a
       className="setting-icon"
@@ -9,7 +12,7 @@ function Feedback() {
       rel="noreferrer"
     >
       <EnvelopeIcon className="h-4 w-4" />
-      问题反馈
+      {t('feedback')}
     </a>
   );
 }

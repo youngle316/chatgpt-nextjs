@@ -1,11 +1,14 @@
 import TwitterSvg from 'public/assets/twitter.svg';
 import GitHubSvg from 'public/assets/github.svg';
+import { useTranslations } from 'next-intl';
 
 function Footer() {
+  const t = useTranslations('footer');
+
   return (
     <>
       <div>
-        使用 gpt-3.5-turbo API 来自 &nbsp;
+        {t('apiFrom')} &nbsp;
         <a
           className="underline"
           target="_blank"

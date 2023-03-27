@@ -1,5 +1,4 @@
 import { db } from '@/service/firebase/firebase';
-import { serverErrorMessage } from '@/utils/message';
 import {
   doc,
   DocumentData,
@@ -8,6 +7,7 @@ import {
 } from 'firebase/firestore';
 
 type fetchAskQuestionValue = {
+  translate: any;
   message: DocumentData;
   session: any;
   currentChatId: string;
@@ -21,7 +21,8 @@ const fetchAskQuestion = async ({
   message,
   session,
   currentChatId,
-  isGenerate
+  isGenerate,
+  translate
 }: fetchAskQuestionValue) => {
   fetch('/api/askQuestion', {
     method: 'POST',
@@ -40,7 +41,7 @@ const fetchAskQuestion = async ({
       if (response.status !== 200) {
         let resultMessage = {
           isLoading: false,
-          text: serverErrorMessage,
+          text: translate('serverErrorMessage'),
           fireBaseMessageID: message.fireBaseMessageID
         };
         if (!isGenerate) {

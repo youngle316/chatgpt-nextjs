@@ -19,7 +19,6 @@ import { showBottomDivRef } from '@/recoil/atom/AtomRef';
 import { useRouter } from 'next/navigation';
 import { useScrollToView } from '@/hook/useScrollToView';
 import Footer from '../Footer';
-import { chatGPTIsThinking } from '@/utils/message';
 import { fetchAskQuestion } from '@/api/chatgptApi/fetchData';
 import 'react-tooltip/dist/react-tooltip.css';
 import useIsMobile from '@/hook/useIsMobile';
@@ -29,6 +28,9 @@ import {
   promptLibModalState
 } from '@/recoil/atom/AtomMessage';
 import textAreaAutoHeight from '@/utils/textAreaAutoHeight';
+import useRouterAddLocale from '@/hook/useRouterAddLocale';
+import LocaleSwitcher from '../setting/LocaleSwitcher';
+import { useTranslations } from 'next-intl';
 
 type ChatProps = {
   chatId: string;
@@ -56,6 +58,10 @@ function ChatInput({ chatId }: ChatProps) {
 
   const router = useRouter();
 
+  const routerAddLocale = useRouterAddLocale();
+
+  const t = useTranslations('prompt');
+
   const sendMessage = async (e: any) => {
     if (e) {
       e.preventDefault();
@@ -81,7 +87,7 @@ function ChatInput({ chatId }: ChatProps) {
           createAt: serverTimestamp()
         }
       );
-      router.push(`/chat/${doc.id}`);
+      router.push(`${routerAddLocale}/chat/${doc.id}`);
       pageId = doc.id;
     }
 
@@ -112,7 +118,7 @@ function ChatInput({ chatId }: ChatProps) {
     const chatGPTMessage: Message = {
       prompt: input,
       isLoading: true,
-      text: chatGPTIsThinking,
+      text: t('chatGPTIsThinking'),
       createAt: serverTimestamp(),
       user: {
         _id: 'ChatGPT',
@@ -137,6 +143,7 @@ function ChatInput({ chatId }: ChatProps) {
         scrollIntoView();
         setIsGenerate(true);
         fetchAskQuestion({
+          translate: t,
           message: {
             prompt: input,
             parentMessageId,
@@ -209,10 +216,13 @@ function ChatInput({ chatId }: ChatProps) {
                 <BookmarkIcon className="h-5 w-5" />
               </button>
             ) : (
-              <button onClick={openPromptLibModal} className="indigo-button">
-                <BookmarkIcon className="-ml-0.5 mr-1.5 h-5 w-5" />
-                Prompt
-              </button>
+              <>
+                <button onClick={openPromptLibModal} className="indigo-button">
+                  <BookmarkIcon className="-ml-0.5 mr-1.5 h-5 w-5" />
+                  Prompt
+                </button>
+                <LocaleSwitcher />
+              </>
             )}
           </div>
           <div className="chat-textarea-container">
@@ -237,7 +247,7 @@ function ChatInput({ chatId }: ChatProps) {
               value={chatInputPrompt}
               onChange={chatTextAreaChange}
               onKeyDown={chatTextAreaKeyDown}
-              placeholder="Shift + Enter 发送 Prompt"
+              placeholder={t('promptPlaceHolder')}
             />
             <button className="chat-textarea-send-button" onClick={sendMessage}>
               <PaperAirplaneIcon className="m-1 h-4 w-4 -rotate-45" />
