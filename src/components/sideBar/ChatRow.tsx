@@ -126,7 +126,7 @@ function ChatRow({ id, chatContentData }: ChatRowProps) {
 
       <div
         className={`relative max-h-5 flex-1 overflow-hidden break-all  ${
-          oldChatId === id && isChatEdit && 'max-h-10'
+          oldChatId === id && isChatEdit && 'max-h-12'
         }`}
       >
         {active && isChatEdit ? (
