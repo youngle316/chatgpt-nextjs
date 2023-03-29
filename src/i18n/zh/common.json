@@ -29,5 +29,7 @@
   "copyToClipboardFail": "复制失败！",
   "promptLib": "Prompt 库",
   "closePromptLib": "关闭",
-  "usePrompt": "使用"
+  "usePrompt": "使用",
+  "darkTheme": "暗黑主题",
+  "lightTheme": "浅色主题"
 }
