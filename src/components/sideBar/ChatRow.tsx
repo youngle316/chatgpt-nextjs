@@ -26,6 +26,7 @@ import {
   oldChatIdState,
   currentChatIdState
 } from '@/recoil/atom/AtomChat';
+import { useI18n } from '@/hook/useI18n';
 
 type ChatRowProps = {
   id: string;
@@ -43,6 +44,8 @@ function ChatRow({ id, chatContentData }: ChatRowProps) {
   const [isChatEdit, setIsChatEdit] = useRecoilState(isChatEditState);
   const [oldChatId, setOldChatId] = useRecoilState(oldChatIdState);
   const setCurrentChatId = useSetRecoilState(currentChatIdState);
+
+  const { t, locale } = useI18n();
 
   const [messages] = useCollection(
     query(
@@ -112,15 +115,19 @@ function ChatRow({ id, chatContentData }: ChatRowProps) {
   return (
     <Link
       onClick={linkToChat}
-      href={isChatEdit ? `/chat/${oldChatId}` : `/chat/${id}`}
+      href={
+        isChatEdit
+          ? `/${locale()}/chat/${oldChatId}`
+          : `/${locale()}/chat/${id}`
+      }
       className={`chatRow ${active && 'bg-gray-700/50'}`}
     >
       <ChatBubbleLeftIcon className="h-5 w-5" />
 
       <div
-        className={`relative max-h-5 flex-1 overflow-hidden break-all ${
-          active && 'pr-10'
-        } ${oldChatId === id && isChatEdit && 'max-h-7'}`}
+        className={`relative max-h-5 flex-1 overflow-hidden break-all  ${
+          oldChatId === id && isChatEdit && 'max-h-10'
+        }`}
       >
         {active && isChatEdit ? (
           <>
@@ -131,7 +138,7 @@ function ChatRow({ id, chatContentData }: ChatRowProps) {
                 e.stopPropagation();
               }}
               onChange={changeChatTitle}
-              className="max-w-[145px] border border-white/50 bg-transparent"
+              className="max-w-[125px] border border-white/50 bg-transparent text-sm"
               type="text"
             />
           </>
@@ -140,7 +147,7 @@ function ChatRow({ id, chatContentData }: ChatRowProps) {
         )}
       </div>
 
-      <div className=" visible absolute right-2 z-10 flex text-gray-300">
+      <div className="flex text-gray-300">
         {active &&
           (!isChatEdit ? (
             <>
