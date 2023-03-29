@@ -125,9 +125,9 @@ function ChatRow({ id, chatContentData }: ChatRowProps) {
       <ChatBubbleLeftIcon className="h-5 w-5" />
 
       <div
-        className={`relative max-h-5 flex-1 overflow-hidden break-all ${
-          active && 'pr-10'
-        } ${oldChatId === id && isChatEdit && 'max-h-7'}`}
+        className={`relative max-h-5 flex-1 overflow-hidden break-all  ${
+          oldChatId === id && isChatEdit && 'max-h-10'
+        }`}
       >
         {active && isChatEdit ? (
           <>
@@ -138,7 +138,7 @@ function ChatRow({ id, chatContentData }: ChatRowProps) {
                 e.stopPropagation();
               }}
               onChange={changeChatTitle}
-              className="max-w-[145px] border border-white/50 bg-transparent"
+              className="max-w-[125px] border border-white/50 bg-transparent text-sm"
               type="text"
             />
           </>
@@ -147,7 +147,7 @@ function ChatRow({ id, chatContentData }: ChatRowProps) {
         )}
       </div>
 
-      <div className=" visible absolute right-2 z-10 flex text-gray-300">
+      <div className="flex text-gray-300">
         {active &&
           (!isChatEdit ? (
             <>
