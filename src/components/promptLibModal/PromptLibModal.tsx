@@ -6,10 +6,13 @@ import { enPrompts } from '@/assets/prompts/enPrompts';
 import PromptContent from './PromptContent';
 import { useRecoilState } from 'recoil';
 import { promptLibModalState } from '@/recoil/atom/AtomMessage';
+import { useI18n } from '@/hook/useI18n';
 
 function PromptLibModal() {
   const [promptLibModal, setPromptLibModal] =
     useRecoilState(promptLibModalState);
+
+  const { t } = useI18n();
 
   return (
     <Transition appear show={promptLibModal} as={Fragment}>
@@ -46,7 +49,7 @@ function PromptLibModal() {
                   as="h3"
                   className="flex justify-center text-lg font-medium leading-6 text-gray-900 dark:text-white"
                 >
-                  Prompt 库
+                  {t('promptLib')}
                 </Dialog.Title>
                 <Tabs.Group aria-label="Tabs with underline" style="underline">
                   <Tabs.Item active={true} title="中文 Prompts">
@@ -61,7 +64,7 @@ function PromptLibModal() {
                     onClick={() => setPromptLibModal(false)}
                     className="blue-button"
                   >
-                    关闭
+                    {t('closePromptLib')}
                   </button>
                 </div>
               </Dialog.Panel>

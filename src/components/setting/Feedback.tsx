@@ -2,9 +2,8 @@ import { EnvelopeIcon } from '@heroicons/react/24/outline';
 import { useI18n } from '@/hook/useI18n';
 
 function Feedback() {
-  const { t, locale } = useI18n();
-  console.log('t', t);
-  console.log('locale', locale());
+  const { t } = useI18n();
+
   return (
     <a
       className="setting-icon"
