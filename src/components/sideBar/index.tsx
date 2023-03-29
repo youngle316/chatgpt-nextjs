@@ -49,9 +49,9 @@ function SideBar() {
               </>
             )}
           </div>
+          {session && <Setting />}
         </nav>
       </div>
-      {session && <Setting />}
     </div>
   );
 }
