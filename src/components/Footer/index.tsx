@@ -1,11 +1,14 @@
 import TwitterSvg from 'public/assets/twitter.svg';
 import GitHubSvg from 'public/assets/github.svg';
+import { useI18n } from '@/hook/useI18n';
 
 function Footer() {
+  const { t } = useI18n();
+
   return (
     <>
       <div>
-        使用 gpt-3.5-turbo API 来自 &nbsp;
+        {t('apiFrom')} &nbsp;
         <a
           className="underline"
           target="_blank"

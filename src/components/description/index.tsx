@@ -1,3 +1,4 @@
+import { useI18n } from '@/hook/useI18n';
 import {
   BoltIcon,
   ExclamationTriangleIcon,
@@ -5,6 +6,8 @@ import {
 } from '@heroicons/react/24/outline';
 
 function Description() {
+  const { t } = useI18n();
+
   return (
     <>
       <div className="w-full px-6 text-gray-800 dark:text-gray-100 md:flex md:h-full md:max-w-2xl md:flex-col lg:max-w-3xl">
@@ -16,36 +19,36 @@ function Description() {
           <div className="main-item">
             <h2 className="main-item-title">
               <SunIcon className="h-6 w-6" />
-              例子
+              {t('example')}
             </h2>
             <ul className="m-auto flex w-full flex-col gap-3.5 sm:max-w-md">
-              <li className="main-item-content">简单解释量子计算</li>
-              <li className="main-item-content">写一个七天的健身餐食谱</li>
-              <li className="main-item-content">如何在JS中发起HTTP请求？</li>
+              <li className="main-item-content">{t('exampleOne')}</li>
+              <li className="main-item-content">{t('exampleTwo')}</li>
+              <li className="main-item-content">{t('exampleThree')}</li>
             </ul>
           </div>
           {/* Capabilities */}
           <div className="main-item">
             <h2 className="main-item-title">
               <BoltIcon className="h-6 w-6" />
-              能力
+              {t('capabilities')}
             </h2>
             <ul className="m-auto flex w-full flex-col gap-3.5 sm:max-w-md">
-              <li className="main-item-content">可追踪上下文</li>
-              <li className="main-item-content">使用 Firebase 存储对话</li>
-              <li className="main-item-content">提供免费的Key</li>
+              <li className="main-item-content">{t('capabilitiesOne')}</li>
+              <li className="main-item-content">{t('capabilitiesTwo')}</li>
+              <li className="main-item-content">{t('capabilitiesThree')}</li>
             </ul>
           </div>
           {/* Limitations */}
           <div className="main-item">
             <h2 className="main-item-title">
               <ExclamationTriangleIcon className="h-6 w-6" />
-              建议
+              {t('suggestion')}
             </h2>
             <ul className="m-auto flex w-full flex-col gap-3.5 sm:max-w-md">
-              <li className="main-item-content">使用英文创建对话</li>
-              <li className="main-item-content">重新生成对话，会丢失上下文</li>
-              <li className="main-item-content">更多的新功能开发中。。。</li>
+              <li className="main-item-content">{t('suggestionOne')}</li>
+              <li className="main-item-content">{t('suggestionTwo')}</li>
+              <li className="main-item-content">{t('suggestionThree')}</li>
             </ul>
           </div>
         </div>

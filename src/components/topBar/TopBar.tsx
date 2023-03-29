@@ -6,6 +6,7 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { db } from '../../service/firebase/firebase';
+import { useI18n } from '@/hook/useI18n';
 
 function TopBar() {
   const setOpen = useSetRecoilState(openState);
@@ -13,6 +14,8 @@ function TopBar() {
   const router = useRouter();
 
   const { data: session } = useSession();
+
+  const { t } = useI18n();
 
   const showSideBar = () => {
     setOpen(true);
@@ -38,7 +41,9 @@ function TopBar() {
       >
         <Bars3Icon className="h-6 w-6" />
       </div>
-      <h1 className="flex-1 text-center text-base font-normal">新建会话</h1>
+      <h1 className="flex-1 text-center text-base font-normal">
+        {t('newChat')}
+      </h1>
       <div className="px-3">
         <PlusIcon onClick={createNewChat} className="h-6 w-6" />
       </div>
