@@ -8,6 +8,7 @@ import SlideOver from '@/components/slide/SlideOver';
 import SideBar from '@/components/sideBar';
 import Analytic from '@/components/analytics';
 import { I18nClientProvider } from '@/provider/I18nClientProvider';
+import CustomThemeProvider from '@/provider/CustomThemeProvider';
 
 export default async function RootLayout({
   children,
@@ -26,14 +27,16 @@ export default async function RootLayout({
           <html lang="en">
             <head />
             <body>
-              <div className="relative h-full w-full overflow-hidden">
-                {session && (
-                  <div className="sidebar-container">
-                    <SideBar />
-                  </div>
-                )}
-                {children}
-              </div>
+              <CustomThemeProvider>
+                <div className="relative h-full w-full overflow-hidden">
+                  {session && (
+                    <div className="sidebar-container">
+                      <SideBar />
+                    </div>
+                  )}
+                  {children}
+                </div>
+              </CustomThemeProvider>
               <ClientProvider />
               <SlideOver />
               <Analytic />

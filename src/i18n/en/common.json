@@ -29,5 +29,7 @@
   "copyToClipboardFail": "Copy failed!",
   "promptLib": "Prompt Library",
   "closePromptLib": "Close",
-  "usePrompt": "Use"
+  "usePrompt": "Use",
+  "darkTheme": "Dark Theme",
+  "lightTheme": "Light Theme"
 }
