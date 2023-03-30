@@ -125,8 +125,8 @@ function ChatRow({ id, chatContentData }: ChatRowProps) {
       <ChatBubbleLeftIcon className="h-5 w-5" />
 
       <div
-        className={`relative max-h-5 flex-1 overflow-hidden break-all  ${
-          oldChatId === id && isChatEdit && 'max-h-12'
+        className={`relative flex-1 overflow-hidden break-all  ${
+          oldChatId === id && isChatEdit ? 'max-h-12' : 'max-h-5'
         }`}
       >
         {active && isChatEdit ? (
