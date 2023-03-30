@@ -18,13 +18,13 @@ export default async function RootLayout({
   params: { locale: string };
 }) {
   const session = await getServerSession(authOptions);
-  const { locale = 'zh-CN' } = params || {};
+  const { locale = 'zh' } = params || {};
 
   return (
     <I18nClientProvider locale={locale}>
       <AtomProvider>
         <SessionProvider session={session}>
-          <html lang="en">
+          <html>
             <head />
             <body>
               <CustomThemeProvider>
