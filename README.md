@@ -1,18 +1,32 @@
-> 像官方 ChatGPT 一样去使用，再加入更强大的功能
+<div align="center">
 
-## 屏幕截图
+<h1 align="center">ChatGPT Next.JS</h1>
 
-![home](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230325-v2w.png)
+像官方 `ChatGPT` 一样使用，再加入更强大的功能
 
-![prompt](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230325-v36.png)
+[Demo](https://chatgpt.younglele.cn) / [Discord](https://discord.gg/2wcQRJKxuZ) / [English README](./README.en.md)
 
-![chat](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230325-v3n.png)
+![主界面](./static/home.jpeg)
 
-## 简介
+</div>
 
-使用 Next.js13、TailwindCSS 搭建项目，使用 Firebase 存储数据以及 [chatgpt-api](https://github.com/transitive-bullshit/chatgpt-api) 获取数据
+## 功能
 
-可放心食用 -> [chatgpt.younglele.cn](https://chatgpt.younglele.cn)
+- 与官方相同的 `UI`，响应式设计，支持深色模式
+- 内置 `Prompt` 列表，[中文 Prompt](https://github.com/PlexPt/awesome-chatgpt-prompts-zh) 和 [英文 Prompt](https://github.com/f/awesome-chatgpt-prompts)
+- 一键翻译 `Prompt` 为英文（推荐使用英文，返回的更准确）
+- 使用 `Firebase` 存储数据
+- 使用 `next-auth` 登录验证
+- i18n
+- 现阶段提供免费的 `key`
+
+## 待实现
+
+- [ ] 自定义 `Prompt`
+- [ ] 导出对话为 `Markdown`
+- [ ] 添加自定义 `key`
+- [ ] 更多的 `model` 选择
+- [ ] 更多可选的角色信息
 
 ## 问题
 
@@ -86,3 +100,11 @@ npm run dev
 ## 赞助
 
 给个 `Star` ⭐ 就行了
+
+## 屏幕截图
+
+![home](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230325-v2w.png)
+
+![prompt](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230325-v36.png)
+
+![chat](https://obsidian-picgo-le.oss-cn-hangzhou.aliyuncs.com/img/SCR-20230325-v3n.png)
