@@ -4,13 +4,13 @@ import { useRecoilState } from 'recoil';
 import { promptLibModalState } from '@/recoil/atom/AtomMessage';
 import textAreaAutoHeight from '@/utils/textAreaAutoHeight';
 import { useEffect } from 'react';
+import { useI18n } from '@/hook/useI18n';
 
 type PromptItemProps = {
   prompt: Prompt;
-  type: Prompts['type'];
 };
 
-function PromptItem({ prompt, type }: PromptItemProps) {
+function PromptItem({ prompt }: PromptItemProps) {
   const [chatInputPrompt, setChatInputPrompt] =
     useRecoilState(chatInputPromptState);
   const [, setPromptLibModalState] = useRecoilState(promptLibModalState);
@@ -19,6 +19,8 @@ function PromptItem({ prompt, type }: PromptItemProps) {
     setChatInputPrompt(prompt.content);
     setPromptLibModalState(false);
   };
+
+  const { t } = useI18n();
 
   useEffect(() => {
     textAreaAutoHeight('chatTextArea');
@@ -29,9 +31,9 @@ function PromptItem({ prompt, type }: PromptItemProps) {
       <div className="flex flex-1 items-center font-bold text-gray-800 dark:text-white">
         {prompt.title}
       </div>
-      <div className={`${type === 'en' ? 'w-20' : 'w-30'}`}>
+      <div className="w-30">
         <button onClick={usePromptLib} className="blue-button">
-          {type === 'en' ? 'Use' : '使用'}
+          {t('usePrompt')}
           <ArrowSmallRightIcon className="ml-2 -mr-1 h-4 w-4" />
         </button>
       </div>

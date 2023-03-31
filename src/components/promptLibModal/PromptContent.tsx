@@ -1,5 +1,5 @@
 import PromptItem from './PromptItem';
-import SearchInput from '../searchInput';
+import SearchInput from '../Input';
 import { useState, useEffect } from 'react';
 import { useI18n } from '@/hook/useI18n';
 
@@ -9,23 +9,17 @@ type promptContentProps = {
 
 function PromptContent({ content }: promptContentProps) {
   const [searchValue, setSearchValue] = useState<string>('');
-  const [showPrompts, setShowPrompts] = useState<Prompt[]>(content.prompts);
 
   const { t } = useI18n();
-
-  useEffect(() => {
-    const newPrompts = content.prompts.filter((prompt: Prompt) => {
-      return prompt.title.includes(searchValue);
-    });
-
-    setShowPrompts(newPrompts);
-  }, [searchValue]);
 
   return (
     <>
       <div className="mb-4 flex gap-3">
         <div className="flex-1">
-          <SearchInput setData={setSearchValue} />
+          <SearchInput
+            setData={setSearchValue}
+            placeholder={t('searchPrompt')}
+          />
         </div>
         <div className="flex w-10 items-center justify-center text-sm">
           <a
@@ -43,14 +37,10 @@ function PromptContent({ content }: promptContentProps) {
         </div>
       </div>
       <div className="flex flex-col gap-3 border-b">
-        {showPrompts.map((prompt: Prompt) => {
-          return (
-            <PromptItem
-              key={prompt.source}
-              prompt={prompt}
-              type={content.type}
-            />
-          );
+        {content.prompts.map((prompt: Prompt) => {
+          if (prompt.title.includes(searchValue)) {
+            return <PromptItem key={prompt.source} prompt={prompt} />;
+          }
         })}
       </div>
     </>
