@@ -31,5 +31,8 @@
   "closePromptLib": "关闭",
   "usePrompt": "使用",
   "darkTheme": "暗黑主题",
-  "lightTheme": "浅色主题"
+  "lightTheme": "浅色主题",
+  "yourPrompt": "自定义",
+  "searchPrompt": "搜索 Prompts",
+  "promptsSource": "来源"
 }
