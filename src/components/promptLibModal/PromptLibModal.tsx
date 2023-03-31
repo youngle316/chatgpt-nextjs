@@ -7,7 +7,6 @@ import PromptContent from './PromptContent';
 import { useRecoilState } from 'recoil';
 import { promptLibModalState } from '@/recoil/atom/AtomMessage';
 import { useI18n } from '@/hook/useI18n';
-import CustomPrompt from './CustomPrompt';
 
 function PromptLibModal() {
   const [promptLibModal, setPromptLibModal] =
