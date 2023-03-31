@@ -34,5 +34,14 @@
   "lightTheme": "Light Theme",
   "yourPrompt": "Custom",
   "searchPrompt": "Search Prompts",
-  "promptsSource": "Source"
+  "promptsSource": "Source",
+  "title": "Title",
+  "promptTitle": "Prompt Title",
+  "des": "Description(optional))",
+  "promptDes": "Prompt Des",
+  "prompt": "Prompt",
+  "promptContent": "Enter your prompt here",
+  "addPrompt": "Add Prompt",
+  "cancelAddPrompt": "Cancel",
+  "noCustomPrompt": "You don't have custom prompts, add one first"
 }

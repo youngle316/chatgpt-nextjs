@@ -34,5 +34,14 @@
   "lightTheme": "浅色主题",
   "yourPrompt": "自定义",
   "searchPrompt": "搜索 Prompts",
-  "promptsSource": "来源"
+  "promptsSource": "来源",
+  "title": "标题",
+  "promptTitle": "Prompt 标题",
+  "des": "描述(可选的)",
+  "promptDes": "Prompt 描述",
+  "prompt": "Prompt",
+  "promptContent": "输入你的 Prompt",
+  "addPrompt": "添加 Prompt",
+  "cancelAddPrompt": "取消",
+  "noCustomPrompt": "你没有自定义的 Prompts，先添加一个吧~"
 }

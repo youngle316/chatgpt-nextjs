@@ -7,6 +7,7 @@ import PromptContent from './PromptContent';
 import { useRecoilState } from 'recoil';
 import { promptLibModalState } from '@/recoil/atom/AtomMessage';
 import { useI18n } from '@/hook/useI18n';
+import CustomPrompt from './CustomPrompt';
 
 function PromptLibModal() {
   const [promptLibModal, setPromptLibModal] =
@@ -52,6 +53,9 @@ function PromptLibModal() {
                   {t('promptLib')}
                 </Dialog.Title>
                 <Tabs.Group aria-label="Tabs with underline" style="underline">
+                  <Tabs.Item title={t('yourPrompt')}>
+                    <CustomPrompt />
+                  </Tabs.Item>
                   <Tabs.Item active={true} title="中文">
                     <PromptContent content={cnPrompts} />
                   </Tabs.Item>

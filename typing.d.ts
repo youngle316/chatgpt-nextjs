@@ -24,6 +24,8 @@ interface Prompt {
   des: string;
   content: string;
   source: string;
+  type?: 'custom' | 'default';
+  createAt?: admin.firestore.Timestamp;
 }
 
 interface Prompts {
