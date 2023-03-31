@@ -52,10 +52,10 @@ function PromptLibModal() {
                   {t('promptLib')}
                 </Dialog.Title>
                 <Tabs.Group aria-label="Tabs with underline" style="underline">
-                  <Tabs.Item active={true} title="中文 Prompts">
+                  <Tabs.Item active={true} title="中文">
                     <PromptContent content={cnPrompts} />
                   </Tabs.Item>
-                  <Tabs.Item active={true} title="English Prompts">
+                  <Tabs.Item title="English">
                     <PromptContent content={enPrompts} />
                   </Tabs.Item>
                 </Tabs.Group>

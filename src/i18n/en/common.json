@@ -31,5 +31,8 @@
   "closePromptLib": "Close",
   "usePrompt": "Use",
   "darkTheme": "Dark Theme",
-  "lightTheme": "Light Theme"
+  "lightTheme": "Light Theme",
+  "yourPrompt": "Custom",
+  "searchPrompt": "Search Prompts",
+  "promptsSource": "Source"
 }
