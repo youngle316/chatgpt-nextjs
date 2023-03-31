@@ -43,5 +43,6 @@
   "promptContent": "Enter your prompt here",
   "addPrompt": "Add Prompt",
   "cancelAddPrompt": "Cancel",
-  "noCustomPrompt": "You don't have custom prompts, add one first"
+  "noCustomPrompt": "You don't have custom prompts, add one first",
+  "searchTitle": "Enter title"
 }

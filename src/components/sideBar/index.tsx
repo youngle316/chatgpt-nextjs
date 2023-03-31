@@ -7,8 +7,12 @@ import { db } from '../../service/firebase/firebase';
 import ChatRow from './ChatRow';
 import Setting from '../setting';
 import { useI18n } from '@/hook/useI18n';
+import BasicInput from '../Input';
+import { useState } from 'react';
 
 function SideBar() {
+  const [searchValue, setSearchValue] = useState<string>('');
+
   const { data: session } = useSession();
 
   const { t } = useI18n();
@@ -37,14 +41,34 @@ function SideBar() {
               </div>
             ) : (
               <>
+                <div className="mb-3">
+                  <BasicInput
+                    setData={setSearchValue}
+                    placeholder={t('searchTitle')}
+                  />
+                </div>
+
                 {chats?.docs?.map((doc) => {
-                  return (
-                    <ChatRow
-                      key={doc?.id}
-                      id={doc?.id}
-                      chatContentData={chatContentData}
-                    />
-                  );
+                  const { title } = doc.data();
+                  if (searchValue) {
+                    if (title && title.includes(searchValue)) {
+                      return (
+                        <ChatRow
+                          key={doc?.id}
+                          id={doc?.id}
+                          chatContentData={chatContentData}
+                        />
+                      );
+                    }
+                  } else {
+                    return (
+                      <ChatRow
+                        key={doc?.id}
+                        id={doc?.id}
+                        chatContentData={chatContentData}
+                      />
+                    );
+                  }
                 })}
               </>
             )}
