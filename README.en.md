@@ -22,7 +22,7 @@ Use as the official ChatGPT, with even more powerful features.
 
 ## To be implemented
 
-- [ ] Custom `Prompt`
+- [x] Custom `Prompt`
 - [ ] Export conversation as `Markdown`
 - [ ] Add custom `key`
 - [ ] More options for selecting a `model`
