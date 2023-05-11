@@ -10,7 +10,7 @@ function Login() {
   const { t } = useI18n();
 
   return (
-    <div className="flex h-full w-full flex-col bg-white">
+    <div className="flex h-full w-full flex-col bg-white dark:bg-gray-800">
       <div className=" mb-3 border-b border-solid border-[#D9DADC] p-3 md:mb-8 md:pb-4 md:pt-6">
         <div className="flex h-14 items-center justify-center gap-3">
           <ChatGPTLogo className="h-full" />
@@ -51,7 +51,7 @@ function Login() {
 
       <div
         className="flex justify-center gap-3 px-3 pt-2 pb-3 text-center text-xs text-black/50 
-      md:px-4 md:pt-3 md:pb-6"
+      dark:text-white/50 md:px-4 md:pt-3 md:pb-6"
       >
         <Footer />
       </div>
