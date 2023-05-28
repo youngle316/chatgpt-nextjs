@@ -44,5 +44,10 @@
   "addPrompt": "添加 Prompt",
   "cancelAddPrompt": "取消",
   "noCustomPrompt": "你没有自定义的 Prompts，先添加一个吧~",
-  "searchTitle": "输入要查找的标题"
+  "searchTitle": "输入要查找的标题",
+  "username": "用户名",
+  "switch-to-signin": "已有账号？登录",
+  "switch-to-signup": "没有账号？注册",
+  "signup": "注册",
+  "signin": "登录"
 }

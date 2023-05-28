@@ -23,10 +23,10 @@ function TopBar() {
 
   const createNewChat = async () => {
     const doc = await addDoc(
-      collection(db, 'users', session?.user?.email!, 'chats'),
+      collection(db, 'users', session?.user?.name!, 'chats'),
       {
         message: [],
-        userId: session?.user?.email!,
+        userId: session?.user?.name!,
         createAt: serverTimestamp()
       }
     );

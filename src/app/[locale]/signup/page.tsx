@@ -1,5 +1,4 @@
 'use client';
-import { signIn } from 'next-auth/react';
 import ChatGPTLogo from 'public/assets/chatgpt.svg';
 import GoogleLogo from 'public/assets/google.svg';
 import GitHubLogo from 'public/assets/github.svg';
@@ -11,30 +10,24 @@ import { PasswordlessAuthenticationService } from '@/service/firebase/webauthn/a
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-function SignIn() {
+function Signup() {
   const { t } = useI18n();
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState('');
   const router = useRouter();
 
-  const handleSignIn = useCallback(async () => {
+  const handleSignup = useCallback(async () => {
     setLoading(true);
     try {
-      const credential = await PasswordlessAuthenticationService.prepareSignin(
-        username
-      );
-      const result = await signIn('credentials', {
-        ...credential,
-        username,
-        redirect: false
-      });
-      if (result?.error) {
-        alert(result.error);
+      await PasswordlessAuthenticationService.registration(username);
+      router.push('/login');
+    } catch (e: any) {
+      // check if e is an AxiosError
+      if (e.response) {
+        alert(e.response.data.message);
       } else {
-        router.push('/');
+        alert(e);
       }
-    } catch (e) {
-      alert(e);
     } finally {
       setLoading(false);
     }
@@ -77,15 +70,15 @@ function SignIn() {
               <ContainedLoadingButton
                 loading={loading}
                 disabled={loading}
-                onClick={handleSignIn}
+                onClick={handleSignup}
               >
-                {t('signin')}
+                {t('signup')}
               </ContainedLoadingButton>
               <Link
-                href={'/signup'}
+                href={'/login'}
                 className="text-blue-500 focus:text-purple-600 underline"
               >
-                {t('switch-to-signup')}
+                {t('switch-to-signin')}
               </Link>
             </div>
           </div>
@@ -102,4 +95,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default Signup;

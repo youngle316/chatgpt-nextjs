@@ -30,7 +30,7 @@ function CustomPrompt() {
 
   const [customPromptData] = useCollection(
     query(
-      collection(db, 'users', session?.user?.email!, 'customPrompt'),
+      collection(db, 'users', session?.user?.name!, 'customPrompt'),
       orderBy('createAt', 'asc')
     )
   );
@@ -52,7 +52,7 @@ function CustomPrompt() {
     setAddBtnDis(true);
 
     addDoc(
-      collection(db, 'users', session?.user?.email!, 'customPrompt'),
+      collection(db, 'users', session?.user?.name!, 'customPrompt'),
       newPrompt
     )
       .then((res) => {

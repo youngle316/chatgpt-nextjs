@@ -20,13 +20,13 @@ function SideBar() {
   const [chats, loading, error] = useCollection(
     session &&
       query(
-        collection(db, 'users', session?.user?.email!, 'chats'),
+        collection(db, 'users', session?.user?.name!, 'chats'),
         orderBy('createAt', 'asc')
       )
   );
 
   const [chatContentData] = useCollection(
-    query(collection(db, 'users', session?.user?.email!, 'chats'))
+    query(collection(db, 'users', session?.user?.name!, 'chats'))
   );
 
   return (

@@ -24,7 +24,7 @@ function Chat({ chatId }: ChatProps) {
         collection(
           db,
           'users',
-          session?.user?.email!,
+          session?.user?.name!,
           'chats',
           chatId,
           'messages'

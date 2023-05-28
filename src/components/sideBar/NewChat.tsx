@@ -20,11 +20,11 @@ function NewChat() {
     const chatContent: ChatContent = {
       title: 'Chat Title',
       message: [],
-      userId: session?.user?.email!,
+      userId: session?.user?.name!,
       createAt: serverTimestamp()
     };
     const doc = await addDoc(
-      collection(db, 'users', session?.user?.email!, 'chats'),
+      collection(db, 'users', session?.user?.name!, 'chats'),
       chatContent
     );
     openStateChange(false);

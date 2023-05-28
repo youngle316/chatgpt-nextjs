@@ -41,7 +41,7 @@ const fetchAskQuestion = async ({
       if (response.status !== 200) {
         let resultMessage = {
           isLoading: false,
-          text: translate('serverErrorMessage'),
+          text: response,
           fireBaseMessageID: message.fireBaseMessageID
         };
         if (!isGenerate) {
@@ -53,7 +53,7 @@ const fetchAskQuestion = async ({
           doc(
             db,
             'users',
-            session?.user?.email!,
+            session?.user?.name!,
             'chats',
             currentChatId,
             'messages',
@@ -96,7 +96,7 @@ const fetchAskQuestion = async ({
           doc(
             db,
             'users',
-            session?.user?.email!,
+            session?.user?.name!,
             'chats',
             currentChatId,
             'messages',

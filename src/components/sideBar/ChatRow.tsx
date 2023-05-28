@@ -49,7 +49,7 @@ function ChatRow({ id, chatContentData }: ChatRowProps) {
 
   const [messages] = useCollection(
     query(
-      collection(db, 'users', session?.user?.email!, 'chats', id, 'messages'),
+      collection(db, 'users', session?.user?.name!, 'chats', id, 'messages'),
       orderBy('createAt', 'asc')
     )
   );
@@ -71,7 +71,7 @@ function ChatRow({ id, chatContentData }: ChatRowProps) {
   }, [pathname]);
 
   const removeChat = async () => {
-    await deleteDoc(doc(db, 'users', session?.user?.email!, 'chats', id));
+    await deleteDoc(doc(db, 'users', session?.user?.name!, 'chats', id));
     router.replace('/');
   };
 
@@ -104,7 +104,7 @@ function ChatRow({ id, chatContentData }: ChatRowProps) {
     const chatContent = {
       title: chatContentTitle
     };
-    updateDoc(doc(db, 'users', session?.user?.email!, 'chats', id), {
+    updateDoc(doc(db, 'users', session?.user?.name!, 'chats', id), {
       ...chatContent
     }).then(() => {
       setIsChatEdit(false);

@@ -75,11 +75,12 @@ function ChatInput({ chatId }: ChatProps) {
     let pageId = chatId;
 
     if (!chatId) {
+      console.log('session', session?.user);
       const doc = await addDoc(
-        collection(db, 'users', session?.user?.email!, 'chats'),
+        collection(db, 'users', session?.user?.name!, 'chats'),
         {
           message: [],
-          userId: session?.user?.email!,
+          userId: session?.user?.name!,
           createAt: serverTimestamp()
         }
       );
@@ -91,9 +92,9 @@ function ChatInput({ chatId }: ChatProps) {
       text: input,
       createAt: serverTimestamp(),
       user: {
-        _id: session?.user?.email!,
+        _id: session?.user?.name!,
         name: session?.user?.name!,
-        avatar: session?.user?.image!
+        avatar: 'https://i.stack.imgur.com/frlIf.png'
       }
     };
 
@@ -101,7 +102,7 @@ function ChatInput({ chatId }: ChatProps) {
       collection(
         db,
         'users',
-        session?.user?.email!,
+        session?.user?.name!,
         'chats',
         pageId,
         'messages'
@@ -128,7 +129,7 @@ function ChatInput({ chatId }: ChatProps) {
       collection(
         db,
         'users',
-        session?.user?.email!,
+        session?.user?.name!,
         'chats',
         pageId,
         'messages'

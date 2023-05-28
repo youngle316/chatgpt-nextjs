@@ -40,7 +40,7 @@ function Message({ message }: MessageProps) {
       doc(
         db,
         'users',
-        session?.user?.email!,
+        session?.user?.name!,
         'chats',
         currentChatId,
         'messages',
