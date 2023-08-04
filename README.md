@@ -1,3 +1,5 @@
+💥 本项目不更新了，请移步至 [power-chatgpt](https://github.com/youngle316/power-chatgpt)
+
 <div align="center">
 
 <h1 align="center">ChatGPT Next.JS</h1>
